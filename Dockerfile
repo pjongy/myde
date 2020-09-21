@@ -55,6 +55,16 @@ RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
 
 
+#
+# Setup openjdk 14
+ARG INSTALL_PATH=/home/$USERNAME/installed
+RUN mkdir -p $INSTALL_PATH
+RUN wget -O $INSTALL_PATH/openjdk-14.tar.gz https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz
+RUN sudo mkdir /usr/java
+RUN sudo tar -xvf $INSTALL_PATH/openjdk-14.tar.gz -C /usr/java/
+RUN sudo update-alternatives --install /usr/bin/java java /usr/java/jdk-14/bin/java 100
+RUN sudo update-alternatives --install /usr/bin/javac javac /usr/java/jdk-14/bin/javac 100
+
 
 WORKDIR /home/$USERNAME
 
