@@ -50,15 +50,12 @@ RUN echo "zsh" >> ~/.bashrc
 #
 # Setup vim plugin
 RUN sudo apt-get install -y \
-    exuberant-ctags \
-    ack-grep \
     vim
-RUN sudo pip3 install pynvim flake8 pylint isort
-RUN sudo wget https://raw.githubusercontent.com/fisadev/fisa-vim-config/a9824ee8ce2689b6b89e9fef863dd9109c7f385d/.vimrc && sudo mv .vimrc ~/.vimrc
-RUN vim -E -s -u "~/.vimrc" +PlugInstall +qall > /dev/null
+RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
 
 
 
-WORKDIR /myde
+WORKDIR /home/$USERNAME
 
 CMD tmux

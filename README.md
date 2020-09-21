@@ -4,7 +4,7 @@ My development environment
 
 ## Run
 ```
-docker run -v "$PWD/myde-volume:/myde" --name myde -it pjongy/myde:{version}
+docker run -v "$PWD/myde-share:/share" --name myde -it pjongy/myde:{version}
 ```
 
 It loads tmux as default. <br>
