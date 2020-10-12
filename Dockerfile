@@ -67,5 +67,6 @@ RUN sudo update-alternatives --install /usr/bin/javac javac /usr/java/jdk-14/bin
 
 
 WORKDIR /home/$USERNAME
+ENV LC_ALL=C.UTF-8
 
 CMD tmux
