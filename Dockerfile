@@ -54,8 +54,6 @@ RUN sudo apt-get install -y \
 RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
 RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
-RUN git clone --depth 1 https://github.com/zxqfl/tabnine-vim ~/.vim/tabnine-vim
-RUN echo "set rtp+=~/.vim/tabnine-vim" >> ~/.vimrc
 
 #
 # Setup openjdk 14
