@@ -67,6 +67,13 @@ RUN sudo tar -xvf $INSTALL_PATH/openjdk-14.tar.gz -C /usr/java/
 RUN sudo update-alternatives --install /usr/bin/java java /usr/java/jdk-14/bin/java 100
 RUN sudo update-alternatives --install /usr/bin/javac javac /usr/java/jdk-14/bin/javac 100
 
+#
+# Setup go 1.15
+RUN wget -O $INSTALL_PATH/go1.15.3.linux-amd64.tar.gz https://golang.org/dl/go1.15.3.linux-amd64.tar.gz
+RUN sudo mkdir /usr/go
+RUN sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.15.3.linux-amd64.tar.gz
+RUN sudo update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100
+RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100
 
 WORKDIR /home/$USERNAME
 ENV LC_ALL=C.UTF-8
