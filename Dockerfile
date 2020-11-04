@@ -31,21 +31,24 @@ RUN sudo apt-get install -y \
     curl
 
 #
-# Setup python3.8 (alias to python3, pip3)
-ARG PYTHON=python3.8
-RUN sudo apt-get install -y \
-    $PYTHON \
-    ${PYTHON}-distutils \
-    python3-pip \
-    ${PYTHON}-dev
-RUN sudo mv $(which $PYTHON) $(dirname $(which $PYTHON))/python3
-RUN alias pip3="python3.8 -m pip"
+# Setup zsh
 RUN sudo apt-get install -y zsh
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 RUN sudo chsh -s `which zsh`
 RUN zsh -c "source ~/.zshrc"
 RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 RUN echo "zsh" >> ~/.bashrc
+
+#
+# Setup python3.9
+ARG PYTHON=python3.9
+RUN sudo apt-get install -y \
+    python3-pip \
+    $PYTHON \
+    ${PYTHON}-distutils \
+    ${PYTHON}-dev
+RUN sudo update-alternatives --install /usr/bin/python3 python3 $(which $PYTHON) 100
+# pip3 uses /usr/bin/python3's pip module that would linked by $PYTHON
 
 #
 # Setup vim plugin
