@@ -40,15 +40,22 @@ RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 RUN echo "zsh" >> ~/.bashrc
 
 #
-# Setup python3.9
-ARG PYTHON=python3.9
-RUN sudo apt-get install -y \
-    python3-pip \
-    $PYTHON \
-    ${PYTHON}-distutils \
-    ${PYTHON}-dev
-RUN sudo update-alternatives --install /usr/bin/python3 python3 $(which $PYTHON) 100
-# pip3 uses /usr/bin/python3's pip module that would linked by $PYTHON
+# Setup pyenv build prerequisites
+ARG DEBIAN_FRONTEND="noninteractive"
+RUN sudo ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
+RUN sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
+    libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev \
+    xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+
+#
+# Setup pyenv
+ARG PYTHON_VERSION=3.9.0
+RUN git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+RUN echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+RUN $HOME/.pyenv/bin/pyenv install $PYTHON_VERSION
+RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100
+RUN sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100
 
 #
 # Setup vim plugin
