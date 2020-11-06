@@ -58,6 +58,13 @@ RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/ver
 RUN sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100
 
 #
+# Setup nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+RUN echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc
+RUN echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm ' >> ~/.zshrc
+RUN echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.zshrc
+
+#
 # Setup vim plugin
 RUN sudo apt-get install -y \
     vim
