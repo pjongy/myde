@@ -48,8 +48,10 @@
 
 
 
-## Intalled env
+## Installed env
 - pyenv (python)
 - jabba (jdk)
 - nvm (node)
 - go
+- ptpython (interactive python console)
+  - $ python3 -m ptpython

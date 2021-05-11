@@ -90,6 +90,10 @@ RUN sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.15.3.linux-amd64.tar.gz
 RUN sudo update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100
 RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100
 
+#
+# Install ptpython (python console)
+RUN python3 -m pip install ptpython
+
 COPY ./HELP.md /home/$USERNAME/HELP.md
 
 WORKDIR /home/$USERNAME
