@@ -20,6 +20,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && rm -rf /var/lib/apt/lists/*
 USER $USERNAME
 
+#
+# Setup download path
+ARG INSTALL_PATH=/home/$USERNAME/installed
+RUN mkdir -p $INSTALL_PATH
 
 #
 # Install default setup
@@ -65,6 +69,12 @@ RUN echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm ' >>
 RUN echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.zshrc
 
 #
+# Setup jabba (jdk env)
+RUN curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~/.jabba/jabba.sh
+RUN chmod -R 755 ~/.jabba
+RUN ~/.jabba/jabba.sh install openjdk@1.14.0
+
+#
 # Setup vim plugin
 RUN sudo apt-get install -y \
     vim
@@ -73,22 +83,14 @@ RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
 RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
 
 #
-# Setup openjdk 14
-ARG INSTALL_PATH=/home/$USERNAME/installed
-RUN mkdir -p $INSTALL_PATH
-RUN wget -O $INSTALL_PATH/openjdk-14.tar.gz https://download.java.net/java/GA/jdk14/076bab302c7b4508975440c56f6cc26a/36/GPL/openjdk-14_linux-x64_bin.tar.gz
-RUN sudo mkdir /usr/java
-RUN sudo tar -xvf $INSTALL_PATH/openjdk-14.tar.gz -C /usr/java/
-RUN sudo update-alternatives --install /usr/bin/java java /usr/java/jdk-14/bin/java 100
-RUN sudo update-alternatives --install /usr/bin/javac javac /usr/java/jdk-14/bin/javac 100
-
-#
 # Setup go 1.15
 RUN wget -O $INSTALL_PATH/go1.15.3.linux-amd64.tar.gz https://golang.org/dl/go1.15.3.linux-amd64.tar.gz
 RUN sudo mkdir /usr/go
 RUN sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.15.3.linux-amd64.tar.gz
 RUN sudo update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100
 RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100
+
+COPY ./HELP.md /home/$USERNAME/HELP.md
 
 WORKDIR /home/$USERNAME
 ENV LC_ALL=C.UTF-8
