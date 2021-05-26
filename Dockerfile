@@ -80,7 +80,6 @@ RUN sudo apt-get install -y \
     vim
 RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
-RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
 
 #
 # Setup go 1.15
@@ -94,7 +93,7 @@ RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt
 # Install ptpython (python console)
 RUN python3 -m pip install ptpython
 
-COPY ./HELP.md /home/$USERNAME/HELP.md
+COPY ./HELP /home/$USERNAME/HELP
 
 WORKDIR /home/$USERNAME
 ENV LC_ALL=C.UTF-8

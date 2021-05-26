@@ -10,7 +10,7 @@ docker run -v "$PWD/myde-share:/share" --name myde -it pjongy/myde:{version}
 It loads tmux as default. <br>
 You can use `$ vim .` for use vim like IDE.
 
-## Help
+## Help (in myde)
 ```
-$ cat ~/HELP.md
+$ cat ~/HELP
 ```
