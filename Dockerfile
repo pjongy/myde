@@ -80,6 +80,9 @@ RUN sudo apt-get install -y \
     vim
 RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
+RUN echo "set tabstop=4" >> ~/.vimrc
+RUN echo "set shiftwidth=4" >> ~/.vimrc
+RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vimrc
 
 #
 # Setup go 1.15
