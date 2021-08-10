@@ -41,7 +41,7 @@ RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -
 RUN sudo chsh -s `which zsh`
 RUN zsh -c "source ~/.zshrc"
 RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-RUN echo "zsh" >> ~/.bashrc
+RUN sh -c "sudo usermod -s $(which zsh) $(whoami)"
 
 #
 # Setup pyenv build prerequisites
@@ -83,6 +83,7 @@ RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
 RUN echo "set tabstop=4" >> ~/.vimrc
 RUN echo "set shiftwidth=4" >> ~/.vimrc
 RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vimrc
+RUN echo "set number" >> ~/.vimrc
 
 #
 # Setup go 1.15
