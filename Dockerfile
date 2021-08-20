@@ -42,6 +42,17 @@ RUN sudo chsh -s `which zsh`
 RUN zsh -c "source ~/.zshrc"
 RUN cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 RUN sh -c "sudo usermod -s $(which zsh) $(whoami)"
+#
+# Setup vim plugin
+RUN sudo apt-get install -y \
+    vim
+RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
+RUN echo "set tabstop=4" >> ~/.vimrc
+RUN echo "set expandtab" >> ~/.vimrc
+RUN echo "set shiftwidth=4" >> ~/.vimrc
+RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vimrc
+RUN echo "set number" >> ~/.vimrc
 
 #
 # Setup pyenv build prerequisites
@@ -60,7 +71,8 @@ RUN echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
 RUN $HOME/.pyenv/bin/pyenv install $PYTHON_VERSION
 RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100
 RUN sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100
-
+# Install vim python plugin
+RUN git clone --recursive https://github.com/davidhalter/jedi-vim.git ~/.vim/pack/plugins/start/jedi-vim
 #
 # Setup nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
@@ -75,23 +87,16 @@ RUN chmod -R 755 ~/.jabba
 RUN ~/.jabba/jabba.sh install openjdk@1.14.0
 
 #
-# Setup vim plugin
-RUN sudo apt-get install -y \
-    vim
-RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
-RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
-RUN echo "set tabstop=4" >> ~/.vimrc
-RUN echo "set shiftwidth=4" >> ~/.vimrc
-RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vimrc
-RUN echo "set number" >> ~/.vimrc
-
-#
-# Setup go 1.15
-RUN wget -O $INSTALL_PATH/go1.15.3.linux-amd64.tar.gz https://golang.org/dl/go1.15.3.linux-amd64.tar.gz
+# Setup go 1.17
+RUN wget -O $INSTALL_PATH/go1.17.linux-amd64.tar.gz https://golang.org/dl/go1.17.linux-amd64.tar.gz
 RUN sudo mkdir /usr/go
-RUN sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.15.3.linux-amd64.tar.gz
+RUN sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.17.linux-amd64.tar.gz
 RUN sudo update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100
 RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100
+# Install vim go plugin
+RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
+RUN vim -c :GoInstallBinaries -c :q
+RUN echo "au filetype go inoremap <buffer> . .<C-x><C-o>" >> ~/.vimrc
 
 #
 # Install ptpython (python console)
