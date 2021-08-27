@@ -103,6 +103,12 @@ RUN echo "au filetype go inoremap <buffer> . .<C-x><C-o>" >> ~/.vimrc
 RUN python3 -m pip install ptpython
 
 #
+# Install kubectl
+RUN bash -c 'sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"'
+RUN sudo chmod +x kubectl
+RUN sudo mv ./kubectl /usr/bin/kubectl
+
+#
 # Add command alias
 RUN echo 'alias gittree="git log --oneline --graph --all"' >> ~/.zshrc
 
