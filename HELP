@@ -45,6 +45,26 @@ Vim
     Move cursor between NerdTree
       <Ctrl> w + <Arrow Left/Right>
 
+    On NERDTree
+
+      Open with vertical new tab
+        s
+
+      Open with horizontal new tab
+        i
+
+      Open in opened tab
+        o
+
+      Modify nodes
+        m
+
+        Add new file
+          a
+
+      Refresh nodes
+        r
+
 
 Installed env
   - pyenv (python)
