@@ -102,6 +102,10 @@ RUN echo "au filetype go inoremap <buffer> . .<C-x><C-o>" >> ~/.vimrc
 # Install ptpython (python console)
 RUN python3 -m pip install ptpython
 
+#
+# Add command alias
+RUN echo 'alias gittree="git log --oneline --graph --all"' >> ~/.zshrc
+
 COPY ./HELP /home/$USERNAME/HELP
 
 WORKDIR /home/$USERNAME
