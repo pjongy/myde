@@ -84,6 +84,11 @@ Vim
       :Rg <Pattern>
 
 
+  VimGo
+    Auto complete
+      <Tab> + <Right>
+
+
 Installed env
   - pyenv (python)
   - jabba (jdk)

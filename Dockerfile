@@ -96,7 +96,7 @@ RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt
 # Install vim go plugin
 RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
 RUN vim -c :GoInstallBinaries -c :q
-RUN echo "au filetype go inoremap <buffer> . .<C-x><C-o>" >> ~/.vimrc
+RUN echo "au filetype go inoremap <buffer> <C-I><Right> <C-x><C-o>" >> ~/.vimrc
 
 #
 # Install vim FZF plugin
