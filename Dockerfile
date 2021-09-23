@@ -99,6 +99,12 @@ RUN vim -c :GoInstallBinaries -c :q
 RUN echo "au filetype go inoremap <buffer> . .<C-x><C-o>" >> ~/.vimrc
 
 #
+# Install vim FZF plugin
+RUN sudo apt install ripgrep -y
+RUN git clone https://github.com/junegunn/fzf.git ~/.vim/pack/packages/start/fzf
+RUN git clone https://github.com/junegunn/fzf.vim.git ~/.vim/pack/packages/start/fzf.vim
+RUN vim -c ':call fzf#install()' -c :q
+#
 # Install ptpython (python console)
 RUN python3 -m pip install ptpython
 

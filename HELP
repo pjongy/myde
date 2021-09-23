@@ -46,6 +46,8 @@ Vim
       <Ctrl> w + <Arrow Left/Right>
 
     On NERDTree
+      Help
+        ?
 
       Open with vertical new tab
         s
@@ -64,6 +66,22 @@ Vim
 
       Refresh nodes
         r
+
+      Set current cursor as root
+        C
+
+  FZF
+    Find files on current path
+      :Files <Path/None>
+
+    List lines on current file
+      :Lines
+
+    List buffers (prev/next/... files)
+      :Buffers
+
+    Find text matches on current path(ripgrep)
+      :Rg <Pattern>
 
 
 Installed env
