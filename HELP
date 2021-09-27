@@ -11,6 +11,16 @@ Tmux
   Split screen (horizontal)
     <HotKey> + "
 
+  Command
+    <HotKey> + :
+
+    Resize pane
+      resize-pane -{D/U/L/R} {size}
+
+      e.g) Resize to down 10
+           resize-pane -D 10
+
+
   Edit mode
     <HotKye> + [
 
