@@ -32,6 +32,10 @@ Tmux
 
       Cursor drag
         <Ctrl> <Space>
+        v
+
+      Copy selected
+        y
 
       Copy and exit edit mode
         <Ctrl> w

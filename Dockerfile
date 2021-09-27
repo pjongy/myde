@@ -123,4 +123,9 @@ COPY ./HELP /home/$USERNAME/HELP
 WORKDIR /home/$USERNAME
 ENV LC_ALL=C.UTF-8
 
+#
+# Add manual tmux key bind
+RUN echo 'bind-key -T copy-mode v send-keys -X begin-selection' >> ~/.tmux.conf
+RUN echo 'bind-key -T copy-mode y send-keys -X copy-selection' >> ~/.tmux.conf
+
 CMD tmux
