@@ -48,12 +48,12 @@ RUN sudo apt-get install -y \
     vim
 RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
-RUN echo "set tabstop=4" >> ~/.vimrc
-RUN echo "set expandtab" >> ~/.vimrc
-RUN echo "set shiftwidth=4" >> ~/.vimrc
-RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vimrc
-RUN echo "set number" >> ~/.vimrc
-
+RUN echo "set tabstop=4" >> ~/.vim_runtime/my_configs.vim
+RUN echo "set expandtab" >> ~/.vim_runtime/my_configs.vim
+RUN echo "set shiftwidth=4" >> ~/.vim_runtime/my_configs.vim
+RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vim_runtime/my_configs.vim
+RUN echo "set number" >> ~/.vim_runtime/my_configs.vim
+RUN echo "colorscheme ir_black" >> ~/.vim_runtime/my_configs.vim
 #
 # Setup pyenv build prerequisites
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -96,7 +96,7 @@ RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt
 # Install vim go plugin
 RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
 RUN vim -c :GoInstallBinaries -c :q
-RUN echo "au filetype go inoremap <buffer> <C-I><Right> <C-x><C-o>" >> ~/.vimrc
+RUN echo "au filetype go inoremap <buffer> <C-I><Right> <C-x><C-o>" >> ~/.vim_runtime/my_configs.vim
 
 #
 # Install vim FZF plugin
