@@ -53,7 +53,6 @@ RUN echo "set expandtab" >> ~/.vim_runtime/my_configs.vim
 RUN echo "set shiftwidth=4" >> ~/.vim_runtime/my_configs.vim
 RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vim_runtime/my_configs.vim
 RUN echo "set number" >> ~/.vim_runtime/my_configs.vim
-RUN echo "colorscheme ir_black" >> ~/.vim_runtime/my_configs.vim
 #
 # Setup pyenv build prerequisites
 ARG DEBIAN_FRONTEND="noninteractive"
