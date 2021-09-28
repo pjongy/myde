@@ -96,7 +96,6 @@ RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt
 # Install vim go plugin
 RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
 RUN vim -c :GoInstallBinaries -c :q
-RUN echo "au filetype go inoremap <buffer> <C-I><Right> <C-x><C-o>" >> ~/.vim_runtime/my_configs.vim
 
 #
 # Install vim FZF plugin
@@ -127,5 +126,20 @@ ENV LC_ALL=C.UTF-8
 # Add manual tmux key bind
 RUN echo 'bind-key -T copy-mode v send-keys -X begin-selection' >> ~/.tmux.conf
 RUN echo 'bind-key -T copy-mode y send-keys -X copy-selection' >> ~/.tmux.conf
+
+#
+# Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# Rust analyzer (LSP)
+RUN git clone https://github.com/rust-analyzer/rust-analyzer.git ~/installed/rust-analyzer
+ENV PATH="$PATH:/home/dev/.cargo/bin"
+RUN cd ~/installed/rust-analyzer && cargo xtask install --server
+#
+# LaguageClient-neovim (for LSP)
+RUN git clone --depth 1 https://github.com/autozimu/LanguageClient-neovim.git ~/.vim_plugins/language_client_vim
+RUN cd ~/.vim_plugins/language_client_vim && ./install.sh
+RUN echo "set runtimepath+=~/.vim_plugins/language_client_vim" >> ~/.vim_runtime/my_configs.vim
+RUN echo "let g:LanguageClient_serverCommands = {'rust': ['rust-analyzer']}" >> ~/.vim_runtime/my_configs.vim
+
 
 CMD tmux
