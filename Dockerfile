@@ -130,9 +130,9 @@ RUN echo 'bind-key -T copy-mode y send-keys -X copy-selection' >> ~/.tmux.conf
 # Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 # Rust analyzer (LSP)
-RUN git clone https://github.com/rust-analyzer/rust-analyzer.git ~/installed/rust-analyzer
+RUN git clone https://github.com/rust-analyzer/rust-analyzer.git $INSTALL_PATH/rust-analyzer
 ENV PATH="$PATH:/home/dev/.cargo/bin"
-RUN cd ~/installed/rust-analyzer && cargo xtask install --server
+RUN cd $INSTALL_PATH/rust-analyzer && cargo xtask install --server
 #
 # LaguageClient-neovim (for LSP)
 RUN git clone --depth 1 https://github.com/autozimu/LanguageClient-neovim.git ~/.vim_plugins/language_client_vim
