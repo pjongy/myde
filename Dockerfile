@@ -2,6 +2,7 @@
 FROM ubuntu:latest
 
 ARG USERNAME=dev
+ENV USERNAME $USERNAME
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -23,6 +24,7 @@ USER $USERNAME
 #
 # Setup download path
 ARG INSTALL_PATH=/home/$USERNAME/installed
+ENV INSTALL_PATH $INSTALL_PATH
 RUN mkdir -p $INSTALL_PATH
 
 #
@@ -97,6 +99,21 @@ RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-
 RUN vim -c :GoInstallBinaries -c :q
 
 #
+# Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# Rust analyzer (LSP)
+RUN git clone https://github.com/rust-analyzer/rust-analyzer.git $INSTALL_PATH/rust-analyzer
+ENV PATH="$PATH:/home/$USERNAME/.cargo/bin"
+RUN cd $INSTALL_PATH/rust-analyzer && cargo xtask install --server
+
+#
+# LaguageClient-neovim (for LSP)
+RUN git clone --depth 1 https://github.com/autozimu/LanguageClient-neovim.git ~/.vim_plugins/language_client_vim
+RUN cd ~/.vim_plugins/language_client_vim && ./install.sh
+RUN echo "set runtimepath+=~/.vim_plugins/language_client_vim" >> ~/.vim_runtime/my_configs.vim
+RUN echo "let g:LanguageClient_serverCommands = {'rust': ['rust-analyzer']}" >> ~/.vim_runtime/my_configs.vim
+
+#
 # Install vim FZF plugin
 RUN sudo apt install ripgrep -y
 RUN git clone https://github.com/junegunn/fzf.git ~/.vim/pack/packages/start/fzf
@@ -105,7 +122,6 @@ RUN vim -c ':call fzf#install()' -c :q
 #
 # Install ptpython (python console)
 RUN python3 -m pip install ptpython
-
 #
 # Install kubectl
 RUN bash -c 'sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"'
@@ -115,6 +131,7 @@ RUN sudo mv ./kubectl /usr/bin/kubectl
 #
 # Add command alias
 RUN echo 'alias gittree="git log --oneline --graph --all"' >> ~/.zshrc
+RUN echo 'alias ptpython="python3 -m ptpython"' >> ~/.zshrc
 
 COPY ./HELP /home/$USERNAME/HELP
 
@@ -125,20 +142,5 @@ ENV LC_ALL=C.UTF-8
 # Add manual tmux key bind
 RUN echo 'bind-key -T copy-mode v send-keys -X begin-selection' >> ~/.tmux.conf
 RUN echo 'bind-key -T copy-mode y send-keys -X copy-selection' >> ~/.tmux.conf
-
-#
-# Rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-# Rust analyzer (LSP)
-RUN git clone https://github.com/rust-analyzer/rust-analyzer.git $INSTALL_PATH/rust-analyzer
-ENV PATH="$PATH:/home/dev/.cargo/bin"
-RUN cd $INSTALL_PATH/rust-analyzer && cargo xtask install --server
-#
-# LaguageClient-neovim (for LSP)
-RUN git clone --depth 1 https://github.com/autozimu/LanguageClient-neovim.git ~/.vim_plugins/language_client_vim
-RUN cd ~/.vim_plugins/language_client_vim && ./install.sh
-RUN echo "set runtimepath+=~/.vim_plugins/language_client_vim" >> ~/.vim_runtime/my_configs.vim
-RUN echo "let g:LanguageClient_serverCommands = {'rust': ['rust-analyzer']}" >> ~/.vim_runtime/my_configs.vim
-
 
 CMD tmux
