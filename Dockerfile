@@ -133,7 +133,7 @@ RUN sudo mv ./kubectl /usr/bin/kubectl
 RUN echo 'alias gittree="git log --oneline --graph --all"' >> ~/.zshrc
 RUN echo 'alias ptpython="python3 -m ptpython"' >> ~/.zshrc
 
-COPY ./HELP /home/$USERNAME/HELP
+COPY --chown=$USERNAME ./HELP /home/$USERNAME/HELP
 
 WORKDIR /home/$USERNAME
 ENV LC_ALL=C.UTF-8
