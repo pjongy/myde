@@ -70,8 +70,8 @@ RUN git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
 RUN echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
 RUN $HOME/.pyenv/bin/pyenv install $PYTHON_VERSION
-RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100
-RUN sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100
+RUN sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force
+RUN sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100 --force
 # Install vim python plugin
 RUN git clone --recursive https://github.com/davidhalter/jedi-vim.git ~/.vim/pack/plugins/start/jedi-vim
 #
@@ -92,8 +92,8 @@ RUN ~/.jabba/jabba.sh install openjdk@1.14.0
 RUN wget -O $INSTALL_PATH/go1.17.linux-amd64.tar.gz https://golang.org/dl/go1.17.linux-amd64.tar.gz
 RUN sudo mkdir /usr/go
 RUN sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.17.linux-amd64.tar.gz
-RUN sudo update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100
-RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100
+RUN sudo update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100 --force
+RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100 --force
 # Install vim go plugin
 RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
 RUN vim -c :GoInstallBinaries -c :q

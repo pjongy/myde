@@ -1,6 +1,15 @@
 Help
 
 
+Installed env
+  - pyenv (python)
+  - jabba (jdk)
+  - nvm (node)
+  - go
+  - ptpython (interactive python console)
+    - $ ptpython
+
+
 Tmux
   HotKey
     <Ctrl> b
@@ -100,13 +109,4 @@ Vim
 
   Auto complete
     <Ctrl> + x -> <Ctrl> + o
-
-
-Installed env
-  - pyenv (python)
-  - jabba (jdk)
-  - nvm (node)
-  - go
-  - ptpython (interactive python console)
-  - $ python3 -m ptpython
 
