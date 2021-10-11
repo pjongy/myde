@@ -88,7 +88,7 @@ Vim
           a
 
       Refresh nodes
-        r
+        R
 
       Set current cursor as root
         C
@@ -110,3 +110,5 @@ Vim
   Auto complete
     <Ctrl> + x -> <Ctrl> + o
 
+  Change working directory
+    :cd {PATH}
