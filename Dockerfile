@@ -50,11 +50,7 @@ RUN sudo apt-get install -y \
     vim
 RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 RUN sh ~/.vim_runtime/install_awesome_vimrc.sh
-RUN echo "set tabstop=4" >> ~/.vim_runtime/my_configs.vim
-RUN echo "set expandtab" >> ~/.vim_runtime/my_configs.vim
-RUN echo "set shiftwidth=4" >> ~/.vim_runtime/my_configs.vim
-RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vim_runtime/my_configs.vim
-RUN echo "set number" >> ~/.vim_runtime/my_configs.vim
+
 #
 # Setup pyenv build prerequisites
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -142,5 +138,20 @@ ENV LC_ALL=C.UTF-8
 # Add manual tmux key bind
 RUN echo 'bind-key -T copy-mode v send-keys -X begin-selection' >> ~/.tmux.conf
 RUN echo 'bind-key -T copy-mode y send-keys -X copy-selection' >> ~/.tmux.conf
+
+#
+# Set vim config
+RUN echo "set tabstop=4" >> ~/.vim_runtime/my_configs.vim
+RUN echo "set expandtab" >> ~/.vim_runtime/my_configs.vim
+RUN echo "set shiftwidth=4" >> ~/.vim_runtime/my_configs.vim
+RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vim_runtime/my_configs.vim
+RUN echo "set number" >> ~/.vim_runtime/my_configs.vim
+# PaperColor theme
+RUN git clone https://github.com/NLKNguyen/papercolor-theme $INSTALL_PATH/papercolor-theme
+RUN mkdir -p ~/.vim/colors
+RUN cp $INSTALL_PATH/papercolor-theme/colors/PaperColor.vim ~/.vim/colors/PaperColor.vim
+RUN echo "let g:PaperColor_Theme_Options = {'theme': {'default.dark': {'override' : {'linenumber_fg' : ['#ffffff', '255']}}}}" >> ~/.vim_runtime/my_configs.vim
+RUN echo "colorscheme PaperColor" >> ~/.vim_runtime/my_configs.vim
+
 
 CMD tmux
