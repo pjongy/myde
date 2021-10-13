@@ -59,6 +59,25 @@ Tmux
     <Ctrl> d
 
 
+W3M
+  Open url
+    $ w3m {URL}
+
+    Open new tab
+      <Shift> + t
+
+    Move tab
+      <Shift> + { / }
+
+    Refresh
+      <Shift> + r
+
+    Change URL
+      <Shift> + u
+
+    Close
+      <Shift> + q
+
 
 Vim
 

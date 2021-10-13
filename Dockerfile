@@ -139,6 +139,9 @@ ENV LC_ALL=C.UTF-8
 RUN echo 'bind-key -T copy-mode v send-keys -X begin-selection' >> ~/.tmux.conf
 RUN echo 'bind-key -T copy-mode y send-keys -X copy-selection' >> ~/.tmux.conf
 
+# Install w3m (cli browser)
+RUN sudo apt install -y w3m w3m-img
+
 #
 # Set vim config
 RUN echo "set tabstop=4" >> ~/.vim_runtime/my_configs.vim
