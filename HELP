@@ -131,3 +131,9 @@ Vim
 
   Change working directory
     :cd {PATH}
+
+  Set visual selection
+    v
+
+    Change visual selected block
+      <Ctrl> + <r>
