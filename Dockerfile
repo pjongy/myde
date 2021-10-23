@@ -156,6 +156,7 @@ RUN cp $INSTALL_PATH/papercolor-theme/colors/PaperColor.vim ~/.vim/colors/PaperC
 RUN echo "let g:PaperColor_Theme_Options = {'theme': {'default.dark': {'override' : {'linenumber_fg' : ['#ffffff', '255']}}}}" >> ~/.vim_runtime/my_configs.vim
 RUN echo "colorscheme PaperColor" >> ~/.vim_runtime/my_configs.vim
 RUN echo "vnoremap <C-r> \"hy:%s/<C-r>h//gc<left><left><left>" >> ~/.vim_runtime/my_configs.vim
+RUN echo "command! -nargs=* -range RsDef :call LanguageClient_textDocument_definition()" >> ~/.vim_runtime/my_configs.vim
 
 
 CMD tmux

@@ -142,3 +142,14 @@ Vim
 
     Change visual selected block
       <Ctrl> + <r>
+
+  Vim-go
+    Goto definition
+      :GoDef
+
+    Format
+      :GoFmt
+
+  Rust Analyzer
+    Goto definition
+      :RsDef
