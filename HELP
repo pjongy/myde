@@ -8,20 +8,21 @@ Installed env
   - go
   - ptpython (interactive python console)
     - $ ptpython
+  - rust
 
 
 Tmux
   HotKey
-    <Ctrl> b
+    <Ctrl> + b
 
   Split screen (vertical)
-    <HotKey> + %
+    <HotKey> -> %
 
   Split screen (horizontal)
-    <HotKey> + "
+    <HotKey> -> "
 
   Command
-    <HotKey> + :
+    <HotKey> -> :
 
     Resize pane
       resize-pane -{D/U/L/R} {size}
@@ -31,7 +32,7 @@ Tmux
 
 
   Edit mode
-    <HotKye> + [
+    <HotKye> -> [
 
       Search text (vim shorcut)
         - forward: /
@@ -40,23 +41,23 @@ Tmux
         - previos: N
 
       Cursor drag
-        <Ctrl> <Space>
+        <Ctrl> + <Space>
         v
 
       Copy selected
         y
 
       Copy and exit edit mode
-        <Ctrl> w
+        <Ctrl> + w
 
   Paste on tmux
-    <HotKey> ]
+    <HotKey> -> ]
 
   Detach
-    <HotKey> d
+    <HotKey> ->  d
 
   Close panel
-    <Ctrl> d
+    <Ctrl> -> d
 
 
 W3M
@@ -85,7 +86,7 @@ Vim
     :NERDTree
 
     Move cursor between NerdTree
-      <Ctrl> w + <Arrow Left/Right>
+      <Ctrl> + w -> <Arrow Left/Right>
 
     On NERDTree
       Help
@@ -111,6 +112,10 @@ Vim
 
       Set current cursor as root
         C
+
+   Resize Panel
+     {Number} -> Ctrl + w -> { - / + }
+
 
   FZF
     Find files on current path
