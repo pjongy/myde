@@ -157,6 +157,8 @@ RUN echo "let g:PaperColor_Theme_Options = {'theme': {'default.dark': {'override
 RUN echo "colorscheme PaperColor" >> ~/.vim_runtime/my_configs.vim
 RUN echo "vnoremap <C-r> \"hy:%s/<C-r>h//gc<left><left><left>" >> ~/.vim_runtime/my_configs.vim
 RUN echo "command! -nargs=* -range RsDef :call LanguageClient_textDocument_definition()" >> ~/.vim_runtime/my_configs.vim
+RUN echo "set nowrap" >> ~/.vim_runtime/my_configs.vim
+RUN echo "set noignorecase" >> ~/.vim_runtime/my_configs.vim
 
 
 CMD tmux
