@@ -15,6 +15,18 @@ Tmux
   HotKey
     <Ctrl> + b
 
+  Create new window
+    <HotKey> -> c
+
+  Change window previous
+    <HotKey> -> p
+
+  Change window next
+    <HotKey> -> n
+
+  Find window/pane
+    <HotKey> -> f
+
   Split screen (vertical)
     <HotKey> -> %
 
@@ -29,7 +41,6 @@ Tmux
 
       e.g) Resize to down 10
            resize-pane -D 10
-
 
   Edit mode
     <HotKye> -> [
