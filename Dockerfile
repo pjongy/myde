@@ -84,15 +84,17 @@ RUN chmod -R 755 ~/.jabba
 RUN ~/.jabba/jabba.sh install openjdk@1.14.0
 
 #
+# Install vim-plug
+RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+#
 # Setup go 1.17
 RUN wget -O $INSTALL_PATH/go1.17.linux-amd64.tar.gz https://golang.org/dl/go1.17.linux-amd64.tar.gz
 RUN sudo mkdir /usr/go
 RUN sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.17.linux-amd64.tar.gz
 RUN sudo update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100 --force
 RUN sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100 --force
-# Install vim go plugin
-RUN git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
-RUN vim -c :GoInstallBinaries -c :q
 
 #
 # Rust
@@ -101,23 +103,18 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 RUN git clone https://github.com/rust-analyzer/rust-analyzer.git $INSTALL_PATH/rust-analyzer
 ENV PATH="$PATH:/home/$USERNAME/.cargo/bin"
 RUN cd $INSTALL_PATH/rust-analyzer && cargo xtask install --server
-
-#
-# LaguageClient-neovim (for LSP)
-RUN git clone --depth 1 https://github.com/autozimu/LanguageClient-neovim.git ~/.vim_plugins/language_client_vim
-RUN cd ~/.vim_plugins/language_client_vim && ./install.sh
-RUN echo "set runtimepath+=~/.vim_plugins/language_client_vim" >> ~/.vim_runtime/my_configs.vim
-RUN echo "let g:LanguageClient_serverCommands = {'rust': ['rust-analyzer']}" >> ~/.vim_runtime/my_configs.vim
-
-#
-# Install vim FZF plugin
-RUN sudo apt install ripgrep -y
-RUN git clone https://github.com/junegunn/fzf.git ~/.vim/pack/packages/start/fzf
-RUN git clone https://github.com/junegunn/fzf.vim.git ~/.vim/pack/packages/start/fzf.vim
-RUN vim -c ':call fzf#install()' -c :q
 #
 # Install ptpython (python console)
 RUN python3 -m pip install ptpython
+
+#
+# Dart
+RUN sudo apt-get install -y apt-transport-https
+RUN sudo sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'
+RUN sudo sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list'
+RUN sudo apt-get update
+RUN sudo apt-get install -y dart
+
 #
 # Install kubectl
 RUN bash -c 'sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"'
@@ -145,6 +142,32 @@ RUN sudo apt install -y w3m w3m-img
 # Install htop
 RUN sudo apt install -y htop
 
+# Vim plug start
+RUN echo "call plug#begin()" >> ~/.vim_runtime/my_configs.vim
+## Intall vim-go plugin
+RUN echo "Plug 'fatih/vim-go'" >> ~/.vim_runtime/my_configs.vim
+## Install rust vim plugin
+RUN echo "Plug 'autozimu/LanguageClient-neovim', { \
+   'branch': 'next', \
+   'do': 'bash install.sh', \
+}" >> ~/.vim_runtime/my_configs.vim
+## Install Rg and vim fzf
+RUN sudo apt install ripgrep -y
+RUN echo "Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }" >> ~/.vim_runtime/my_configs.vim
+RUN echo "Plug 'junegunn/fzf.vim'" >> ~/.vim_runtime/my_configs.vim
+## Install vim LSC
+RUN echo "Plug 'natebosch/vim-lsc'" >> ~/.vim_runtime/my_configs.vim
+## Install vim dart plugin
+RUN echo "Plug 'dart-lang/dart-vim-plugin'" >> ~/.vim_runtime/my_configs.vim
+RUN echo "Plug 'natebosch/vim-lsc-dart'" >> ~/.vim_runtime/my_configs.vim
+RUN echo "call plug#end()" >> ~/.vim_runtime/my_configs.vim
+## Vim plug end
+RUN vim --not-a-term --ttyfail -c :PlugInstall -c :q -c :q
+RUN vim --not-a-term --ttyfail -c :GoInstallBinaries -c :q -c :q
+
+# Apply rust analyzer
+RUN echo "let g:LanguageClient_serverCommands = {'rust': ['rust-analyzer']}" >> ~/.vim_runtime/my_configs.vim
+
 #
 # Set vim config
 RUN echo "set tabstop=4" >> ~/.vim_runtime/my_configs.vim
@@ -152,7 +175,7 @@ RUN echo "set expandtab" >> ~/.vim_runtime/my_configs.vim
 RUN echo "set shiftwidth=4" >> ~/.vim_runtime/my_configs.vim
 RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vim_runtime/my_configs.vim
 RUN echo "set number" >> ~/.vim_runtime/my_configs.vim
-# PaperColor theme
+## PaperColor theme
 RUN git clone https://github.com/NLKNguyen/papercolor-theme $INSTALL_PATH/papercolor-theme
 RUN mkdir -p ~/.vim/colors
 RUN cp $INSTALL_PATH/papercolor-theme/colors/PaperColor.vim ~/.vim/colors/PaperColor.vim

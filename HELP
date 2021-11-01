@@ -9,6 +9,7 @@ Installed env
   - ptpython (interactive python console)
     - $ ptpython
   - rust
+  - dart
 
 
 Tmux
@@ -164,3 +165,16 @@ Vim
   Rust Analyzer
     Goto definition
       :RsDef
+
+  Hexa
+    Enter hex edit mode
+      :%!xxd
+
+      With column
+        :%!xxd -c 24
+
+    Exit hex edit mode (before save)
+      :%!xxd -r
+
+      With column
+        :%!xxd -r -c 24
