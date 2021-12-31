@@ -94,6 +94,15 @@ W3M
 
 Vim
 
+  Change colorScheme
+    :colorscheme default
+
+    To default as permanantly
+      $ echo "colorscheme default" >> ~/.vim_runtime/my_configs.vim
+
+    Alternatives for default
+      peaksea / PaperColor ...
+
   NerdTree
     :NERDTree
 

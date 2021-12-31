@@ -131,11 +131,6 @@ COPY --chown=$USERNAME ./HELP /home/$USERNAME/HELP
 WORKDIR /home/$USERNAME
 ENV LC_ALL=C.UTF-8
 
-#
-# Add manual tmux key bind
-RUN echo 'bind-key -T copy-mode v send-keys -X begin-selection' >> ~/.tmux.conf
-RUN echo 'bind-key -T copy-mode y send-keys -X copy-selection' >> ~/.tmux.conf
-
 # Install w3m (cli browser)
 RUN sudo apt install -y w3m w3m-img
 
@@ -180,11 +175,17 @@ RUN git clone https://github.com/NLKNguyen/papercolor-theme $INSTALL_PATH/paperc
 RUN mkdir -p ~/.vim/colors
 RUN cp $INSTALL_PATH/papercolor-theme/colors/PaperColor.vim ~/.vim/colors/PaperColor.vim
 RUN echo "let g:PaperColor_Theme_Options = {'theme': {'default.dark': {'override' : {'linenumber_fg' : ['#ffffff', '255']}}}}" >> ~/.vim_runtime/my_configs.vim
-RUN echo "colorscheme PaperColor" >> ~/.vim_runtime/my_configs.vim
 RUN echo "vnoremap <C-r> \"hy:%s/<C-r>h//gc<left><left><left>" >> ~/.vim_runtime/my_configs.vim
 RUN echo "command! -nargs=* -range RsDef :call LanguageClient_textDocument_definition()" >> ~/.vim_runtime/my_configs.vim
 RUN echo "set nowrap" >> ~/.vim_runtime/my_configs.vim
 RUN echo "set noignorecase" >> ~/.vim_runtime/my_configs.vim
+#
+# Add manual tmux key bind
+RUN echo 'bind-key -T copy-mode v send-keys -X begin-selection' >> ~/.tmux.conf
+RUN echo 'bind-key -T copy-mode y send-keys -X copy-selection' >> ~/.tmux.conf
+RUN echo "bind '\"' split-window -c \"#{pane_current_path}\"" >> ~/.tmux.conf
+RUN echo 'bind % split-window -h -c "#{pane_current_path}"' >> ~/.tmux.conf
+RUN echo 'bind c new-window -c "#{pane_current_path}"' >> ~/.tmux.conf
 
 
 CMD tmux
