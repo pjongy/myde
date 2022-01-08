@@ -187,3 +187,28 @@ Vim
 
       With column
         :%!xxd -r -c 24
+
+kafkactl
+
+    Edit context
+        $ vi $HOME/.config/kafkactl/config.yaml
+
+    Consume message
+        $ kafkactl consume {TOPIC}
+
+    Produce message
+        $ kafkactl produce {TOPIC} --key={KEY} --value={VALUE}
+
+    Reset consumer group offset
+        $ kafkactl reset offset {GROUP} --topic {TOPIC} --offset {OFFSET}
+
+cqlsh
+
+    (Read DataStax license: https://www.datastax.com/legal/datastax-cqlsh-license-terms)
+    And manually install with:
+        1. $ wget -O $INSTALL_PATH/cqlsh-astra.tar.gz https://downloads.datastax.com/enterprise/cqlsh-astra.tar.gz
+        2. $ tar -xzvf $INSTALL_PATH/cqlsh-astra.tar.gz -C $INSTALL_PATH
+        3. $ sudo ln -sf $INSTALL_PATH/cqlsh-astra/bin/cqlsh /usr/local/bin/cqlsh
+
+    Connect to cassandra
+        $ cqlsh -u {USER} -p {PASSWORD} {HOST} {PORT}
