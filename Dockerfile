@@ -126,11 +126,6 @@ RUN sudo mv ./kubectl /usr/bin/kubectl
 RUN wget -O $INSTALL_PATH/kafkactl_1.24.0_linux_amd64.deb  https://github.com/deviceinsight/kafkactl/releases/download/v1.24.0/kafkactl_1.24.0_linux_amd64.deb
 RUN sudo dpkg -i $INSTALL_PATH/kafkactl_1.24.0_linux_amd64.deb
 
-# Install cqlsh
-RUN wget -O $INSTALL_PATH/cqlsh-astra.tar.gz https://downloads.datastax.com/enterprise/cqlsh-astra.tar.gz
-RUN tar -xzvf $INSTALL_PATH/cqlsh-astra.tar.gz -C $INSTALL_PATH
-RUN sudo ln -sf $INSTALL_PATH/cqlsh-astra/bin/cqlsh /usr/local/bin/cqlsh
-
 #
 # Add command alias
 RUN echo "alias gittree='git log --oneline --graph --all'" >> ~/.zshrc
