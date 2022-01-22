@@ -175,6 +175,7 @@ RUN echo "set expandtab" >> ~/.vim_runtime/my_configs.vim
 RUN echo "set shiftwidth=4" >> ~/.vim_runtime/my_configs.vim
 RUN echo "let g:snipMate = { 'snippet_version' : 1 }" >> ~/.vim_runtime/my_configs.vim
 RUN echo "set number" >> ~/.vim_runtime/my_configs.vim
+RUN echo "let mapleader=','" >> ~/.vim_runtime/my_configs.vim
 ## PaperColor theme
 RUN git clone https://github.com/NLKNguyen/papercolor-theme $INSTALL_PATH/papercolor-theme
 RUN mkdir -p ~/.vim/colors

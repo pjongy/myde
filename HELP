@@ -94,6 +94,17 @@ W3M
 
 Vim
 
+  <leader>
+    ,
+
+  Move cursor
+
+    Previous cursor
+      <Ctrl> + o
+
+    Next cursor
+      <Ctrl> + i
+
   Change colorScheme
     :colorscheme default
 
@@ -174,6 +185,10 @@ Vim
   Rust Analyzer
     Goto definition
       :RsDef
+
+  Jedi-vim (python)
+    Goto definition
+      <leader> -> d
 
   Hexa
     Enter hex edit mode
