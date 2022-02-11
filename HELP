@@ -227,3 +227,11 @@ cqlsh
 
     Connect to cassandra
         $ cqlsh -u {USER} -p {PASSWORD} {HOST} {PORT}
+
+natscli
+
+    Add context and select as default context
+        $ nats context add nats --server {HOST} --description {DESCRIPTION} --select
+
+    Show context list
+        $ nats context ls

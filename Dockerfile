@@ -127,6 +127,11 @@ RUN wget -O $INSTALL_PATH/kafkactl_1.24.0_linux_amd64.deb  https://github.com/de
 RUN sudo dpkg -i $INSTALL_PATH/kafkactl_1.24.0_linux_amd64.deb
 
 #
+# Install natscli
+RUN wget -O $INSTALL_PATH/natscli-0.0.28-amd64.deb https://github.com/nats-io/natscli/releases/download/v0.0.28/nats-0.0.28-amd64.deb
+RUN sudo dpkg -i $INSTALL_PATH/natscli-0.0.28-amd64.deb
+
+#
 # Add command alias
 RUN echo "alias gittree='git log --oneline --graph --all'" >> ~/.zshrc
 RUN echo "alias ptpython='python3 -m ptpython'" >> ~/.zshrc
