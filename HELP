@@ -98,12 +98,15 @@ Vim
     ,
 
   Move cursor
-
     Previous cursor
       <Ctrl> + o
 
     Next cursor
       <Ctrl> + i
+
+  LSP
+    Go to definition (:LSClientGoToDefinition)
+      <Ctrl> + ]
 
   Change colorScheme
     :colorscheme default
