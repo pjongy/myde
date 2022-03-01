@@ -79,7 +79,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | b
 # Setup jabba (jdk env)
 RUN curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~/.jabba/jabba.sh \
   && chmod -R 755 ~/.jabba \
-  && ~/.jabba/jabba.sh install openjdk@1.14.0
+  && ~/.jabba/bin/jabba install openjdk@1.14.0
 
 #
 # Install vim-plug
