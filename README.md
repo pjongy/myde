@@ -3,8 +3,10 @@
 My development environment
 
 ## Run
+Mounting docker.sock volume is for DooD
 ```
-docker run -v "$PWD/myde-share:/share" --name myde -it pjongy/myde:{version}
+docker run -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  -v "$PWD/myde-share:/share" --name myde -it pjongy/myde:{version}
 ```
 
 It loads tmux as default. <br>

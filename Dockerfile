@@ -127,6 +127,10 @@ RUN wget -O $INSTALL_PATH/natscli-0.0.28-amd64.deb https://github.com/nats-io/na
   && sudo dpkg -i $INSTALL_PATH/natscli-0.0.28-amd64.deb
 
 #
+# Install docker
+RUN sudo apt-get install -y docker.io
+
+#
 # Add command alias
 RUN echo "alias gittree='git log --oneline --graph --all'" >> ~/.zshrc \
   && echo "alias ptpython='python3 -m ptpython'" >> ~/.zshrc
