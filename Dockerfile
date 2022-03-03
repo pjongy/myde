@@ -173,4 +173,12 @@ RUN cat ~/append_tmux.conf >> ~/.tmux.conf \
 # Add httpie (curl alternative)
 RUN pip3 install httpie==2.6.0 && sudo apt install -y httpie
 
+#
+# Add jless (json cli viewer)
+RUN cargo install jless
+
+#
+# Add jellij (tmux alternative)
+RUN cargo install zellij
+
 CMD tmux

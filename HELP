@@ -253,3 +253,21 @@ httpie (curl alternative)
 
           With header
             X-Header:Value
+
+
+jless (json viewer)
+
+    Parse json
+      $ jless {FILENAME}
+
+
+zellij (tmux alternative)
+
+    Start zellij (shotrcuts below)
+      $ zellij
+
+    List zellij
+      $ zellij ls
+
+    Attach zellij session
+      $ zellij attach
