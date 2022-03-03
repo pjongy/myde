@@ -169,4 +169,8 @@ COPY --chown=$USERNAME ./append_tmux.conf /home/$USERNAME/append_tmux.conf
 RUN cat ~/append_tmux.conf >> ~/.tmux.conf \
   && rm -f ~/append_tmux.conf
 
+#
+# Add httpie (curl alternative)
+RUN pip3 install httpie==2.6.0 && sudo apt install -y httpie
+
 CMD tmux

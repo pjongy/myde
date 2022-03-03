@@ -238,3 +238,18 @@ natscli
 
     Show context list
         $ nats context ls
+
+
+httpie (curl alternative)
+
+    Request(use https for using tls)
+      $ http {url}
+
+          Form request
+            -f {METHOD} param=value
+
+          Json request
+            {METHOD} param=value
+
+          With header
+            X-Header:Value
