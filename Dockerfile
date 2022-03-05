@@ -130,7 +130,7 @@ RUN wget -O $INSTALL_PATH/natscli-0.0.28-amd64.deb https://github.com/nats-io/na
 
 #
 # Install docker
-RUN sudo apt-get install -y docker.io
+RUN sudo apt-get install -y docker.io docker-compose && pip3 install docker-compose
 
 #
 # Add command alias
