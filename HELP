@@ -16,6 +16,9 @@ Tmux
   HotKey
     <Ctrl> + b
 
+  HotKey(e.g remote) in tmux session (Send hotkey twice)
+    <HotKey> -> <HotKey>
+
   Create new window
     <HotKey> -> c
 
