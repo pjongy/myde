@@ -139,6 +139,19 @@ RUN sudo apt install -y w3m w3m-img
 # Install htop
 RUN sudo apt install -y htop
 
+#
+# Add httpie (curl alternative)
+RUN pip3 install httpie==2.6.0 && sudo apt install -y httpie
+
+#
+# Add jless (json cli viewer)
+RUN sudo apt install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev
+RUN cargo install jless
+
+#
+# Add jellij (tmux alternative)
+RUN cargo install zellij
+
 # Install Rg for fzf
 RUN sudo apt install ripgrep -y
 
@@ -166,17 +179,5 @@ COPY --chown=$USERNAME ./append_tmux.conf /home/$USERNAME/append_tmux.conf
 RUN cat ~/append_tmux.conf >> ~/.tmux.conf \
   && rm -f ~/append_tmux.conf
 
-#
-# Add httpie (curl alternative)
-RUN pip3 install httpie==2.6.0 && sudo apt install -y httpie
-
-#
-# Add jless (json cli viewer)
-RUN sudo apt install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev
-RUN cargo install jless
-
-#
-# Add jellij (tmux alternative)
-RUN cargo install zellij
 
 CMD tmux
