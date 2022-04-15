@@ -27,6 +27,9 @@
     statusline_unicode = false
     # Enable vim compatible mode, avoid changing origin vim key bindings
     vimcompatible = true
+    filetree_direction = true
+    enable_filetree_gitstatus = true
+    relativenumber = true
 
 # Enable autocomplete layer
 [[layers]]
