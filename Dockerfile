@@ -160,7 +160,7 @@ RUN curl -sLf https://spacevim.org/install.sh | bash
 
 #
 # Install vim-plug
-RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+RUN curl -fLo ~/.SpaceVim.d/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 #
