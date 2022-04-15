@@ -41,10 +41,6 @@ RUN sudo apt-get install -y zsh \
   && zsh -c "source ~/.zshrc" \
   && cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc \
   && sh -c "sudo usermod -s $(which zsh) $(whoami)"
-#
-# Setup vim plugin
-RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime \
-  && sh ~/.vim_runtime/install_awesome_vimrc.sh
 
 #
 # Setup pyenv build prerequisites
@@ -65,8 +61,6 @@ RUN git clone https://github.com/pyenv/pyenv.git ~/.pyenv \
   && sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force \
   && sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100 --force \
   && sudo ln -s /usr/share/pyshared/lsb_release.py $HOME/.pyenv/versions/$PYTHON_VERSION/lib/python$PYTHON_VERSION_MAJOR/site-packages/lsb_release.py
-# Install vim python plugin
-RUN git clone --recursive https://github.com/davidhalter/jedi-vim.git ~/.vim/pack/plugins/start/jedi-vim
 # Install ptpython (python console)
 RUN python3 -m pip install ptpython
 
@@ -84,17 +78,14 @@ RUN curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~
   && ~/.jabba/bin/jabba install openjdk@1.14.0
 
 #
-# Install vim-plug
-RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-#
 # Setup go 1.17
 RUN wget -O $INSTALL_PATH/go1.17.linux-amd64.tar.gz https://golang.org/dl/go1.17.linux-amd64.tar.gz \
   && sudo mkdir /usr/go \
   && sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.17.linux-amd64.tar.gz \
   && sudo update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100 --force \
   && sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100 --force
+# gopls (LSP)
+RUN go install golang.org/x/tools/gopls@latest
 
 #
 # Rust
@@ -151,19 +142,23 @@ RUN sudo apt install -y htop
 # Install Rg for fzf
 RUN sudo apt install ripgrep -y
 
+# Install SpaceVim
+RUN curl -sLf https://spacevim.org/install.sh | bash
+
+#
+# Install vim-plug
+RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 #
 # Apply vim customize
-## Install PaperColor vim theme
-RUN git clone https://github.com/NLKNguyen/papercolor-theme $INSTALL_PATH/papercolor-theme
-RUN mkdir -p ~/.vim/colors
-RUN cp $INSTALL_PATH/papercolor-theme/colors/PaperColor.vim ~/.vim/colors/PaperColor.vim
 ## Append vim config
+COPY --chown=$USERNAME ./space_vim_init.toml /home/$USERNAME/.SpaceVim.d/init.toml
 COPY --chown=$USERNAME ./append_vim.conf /home/$USERNAME/append_vim.conf
-RUN cat ~/append_vim.conf >> ~/.vim_runtime/my_configs.vim \
+RUN cat ~/append_vim.conf >> ~/.SpaceVim/main.vim \
   && rm -f ~/append_vim.conf
-## Install vim plug
+## Install plugins
 RUN vim --not-a-term --ttyfail -c :PlugInstall -c :q -c :q
-RUN vim --not-a-term --ttyfail -c :GoInstallBinaries -c :q -c :q
 
 #
 # Add manual tmux key bind

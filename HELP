@@ -95,9 +95,11 @@ W3M
       <Shift> + q
 
 
-Vim
+Vim (SpaceVim)
+  HotKey
+    <Space>
 
-  <leader>
+  <Leader>
     ,
 
   Move cursor
