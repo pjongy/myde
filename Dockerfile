@@ -79,12 +79,19 @@ RUN curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~
   && ~/.jabba/bin/jabba install openjdk@1.14.0
 ENV JAVA_HOME /home/dev/.jabba/jdk/openjdk@1.14.0
 ENV PATH="$PATH:$JAVA_HOME/bin"
+
 #
 # Install gradle
 ENV GRADLE_VERSION 7.1.1
 RUN wget -O $INSTALL_PATH/gradle-$GRADLE_VERSION-bin.zip https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip
 RUN sudo unzip -d /opt/gradle $INSTALL_PATH/gradle-$GRADLE_VERSION-bin.zip
 RUN sudo update-alternatives --install /usr/bin/gradle gradle /opt/gradle/gradle-$GRADLE_VERSION/bin/gradle 100 --force
+
+# kotlin-language-server (LSP)
+RUN wget -O $INSTALL_PATH/kotlin-lsp.zip https://github.com/fwcd/kotlin-language-server/releases/download/1.3.0/server.zip
+RUN sudo unzip -d /opt/kotlin-lsp $INSTALL_PATH/kotlin-lsp.zip
+RUN cd /opt/kotlin-lsp/server/bin && sudo curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.45.2/ktlint && sudo chmod a+x ktlint
+ENV PATH="$PATH:/opt/kotlin-lsp/server/bin"
 
 #
 # Setup go 1.17
