@@ -109,12 +109,15 @@ Vim (SpaceVim)
     Next cursor
       <Ctrl> + i
 
-  LSP
+  LSC
     Go to definition (:LSClientGoToDefinition)
       <Leader> + d
 
     Go to definition (Using tag)
       <Ctrl> + ]
+
+    Go to definition (:call LanguageClient_textDocument_definition())
+      :GoToDef
 
   Change colorScheme
     :colorscheme default
@@ -195,10 +198,6 @@ Vim (SpaceVim)
 
     Format
       :GoFmt
-
-  Rust Analyzer
-    Goto definition
-      :RsDef
 
   Jedi-vim (python)
     Goto definition
