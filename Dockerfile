@@ -31,7 +31,8 @@ RUN mkdir -p $INSTALL_PATH
 # Install default setup
 RUN sudo apt-get update \
   && sudo apt-get install -y \
-    wget git tmux curl vim
+    wget git tmux curl vim \
+    zip unzip
 
 #
 # Setup zsh
@@ -76,6 +77,14 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | b
 RUN curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~/.jabba/jabba.sh \
   && chmod -R 755 ~/.jabba \
   && ~/.jabba/bin/jabba install openjdk@1.14.0
+ENV JAVA_HOME /home/dev/.jabba/jdk/openjdk@1.14.0
+ENV PATH="$PATH:$JAVA_HOME/bin"
+#
+# Install gradle
+ENV GRADLE_VERSION 7.1.1
+RUN wget -O $INSTALL_PATH/gradle-$GRADLE_VERSION-bin.zip https://services.gradle.org/distributions/gradle-$GRADLE_VERSION-bin.zip
+RUN sudo unzip -d /opt/gradle $INSTALL_PATH/gradle-$GRADLE_VERSION-bin.zip
+RUN sudo update-alternatives --install /usr/bin/gradle gradle /opt/gradle/gradle-$GRADLE_VERSION/bin/gradle 100 --force
 
 #
 # Setup go 1.17
