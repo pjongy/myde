@@ -109,6 +109,9 @@ Vim
 
   LSP
     Go to definition (:LSClientGoToDefinition)
+      <Leader> + d
+
+    Go to definition (Using tag)
       <Ctrl> + ]
 
   Change colorScheme
@@ -169,7 +172,7 @@ Vim
       :Rg <Pattern>
 
 
-  Auto complete
+  Auto complete (show properties)
     <Ctrl> + x -> <Ctrl> + o
 
   Change working directory
@@ -181,9 +184,12 @@ Vim
     Change visual selected block
       <Ctrl> + <r>
 
+    Find text visual selected block
+      <Ctrl> + <f>
+
   Vim-go
-    Goto definition
-      :GoDef
+    Goto definition (:GoDef)
+      <Ctrl> + ]
 
     Format
       :GoFmt
