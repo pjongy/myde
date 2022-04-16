@@ -55,13 +55,13 @@ RUN sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
 # Setup pyenv
 ARG PYTHON_VERSION_MAJOR=3.9
 ARG PYTHON_VERSION=$PYTHON_VERSION_MAJOR.0
-RUN git clone https://github.com/pyenv/pyenv.git ~/.pyenv \
-  && echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc \
-  && echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc \
-  && $HOME/.pyenv/bin/pyenv install $PYTHON_VERSION \
+RUN sudo git clone https://github.com/pyenv/pyenv.git /opt/.pyenv \
+  && /opt/.pyenv/bin/pyenv install $PYTHON_VERSION \
   && sudo update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force \
   && sudo update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100 --force \
   && sudo ln -s /usr/share/pyshared/lsb_release.py $HOME/.pyenv/versions/$PYTHON_VERSION/lib/python$PYTHON_VERSION_MAJOR/site-packages/lsb_release.py
+ENV PYENV_ROOT="/opt/.pyenv"
+ENV PATH="$PATH:$PYENV_ROOT/bin"
 # Install ptpython (python console)
 RUN python3 -m pip install ptpython
 
