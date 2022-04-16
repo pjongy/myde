@@ -42,6 +42,8 @@ name = 'shell'
 default_position = 'top'
 default_height = 30
 
+[[layers]]
+name = 'lsp'
 
 
 [[layers]] name = 'lang#kotlin'
@@ -52,10 +54,3 @@ default_height = 30
 [[layers]] name = 'lang#dart'
 
 
-[[layers]]
-name = 'lsp'
-  filetypes = [
-    "rust"
-  ]
-  [layers.override_cmd]
-    rust = ["rust-analyzer"]
