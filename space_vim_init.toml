@@ -44,6 +44,12 @@ default_height = 30
 
 [[layers]]
 name = 'lsp'
+filetypes = [
+  "rust"
+]
+[layers.override_cmd]
+  # override not to use racer
+  rust = ["rust-analyzer"]
 
 
 [[layers]] name = 'lang#kotlin'

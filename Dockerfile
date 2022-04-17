@@ -188,6 +188,8 @@ RUN cat ~/append_vim.conf >> ~/.SpaceVim/main.vim \
   && rm -f ~/append_vim.conf
 ## Install plugins
 RUN vim --not-a-term --ttyfail -c :PlugInstall -c :q -c :q
+## Add ftplugin for lsc
+COPY --chown=$USERNAME ftplugin/* /home/$USERNAME/.SpaceVim/ftplugin/
 
 #
 # Add manual tmux key bind

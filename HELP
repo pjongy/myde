@@ -109,15 +109,15 @@ Vim (SpaceVim)
     Next cursor
       <Ctrl> + i
 
-  LSC
+  vim-lsc (autocomplete via key typing)
     Go to definition (:LSClientGoToDefinition)
       <Leader> + d
 
     Go to definition (Using tag)
       <Ctrl> + ]
 
-    Go to definition (:call LanguageClient_textDocument_definition())
-      :GoToDef
+    Autocomplete manually (wired omnifunc to lsc#complete#complete)
+      <Ctrl> + x -> <Ctrl> + o
 
   Change colorScheme
     :colorscheme default
@@ -175,10 +175,6 @@ Vim (SpaceVim)
 
     Find text matches on current path(ripgrep)
       :Rg <Pattern>
-
-
-  Auto complete (show properties)
-    <Ctrl> + x -> <Ctrl> + o
 
   Change working directory
     :cd {PATH}
