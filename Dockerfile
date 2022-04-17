@@ -87,12 +87,6 @@ RUN wget -O $INSTALL_PATH/gradle-$GRADLE_VERSION-bin.zip https://services.gradle
 RUN sudo unzip -d /opt/gradle $INSTALL_PATH/gradle-$GRADLE_VERSION-bin.zip
 RUN sudo update-alternatives --install /usr/bin/gradle gradle /opt/gradle/gradle-$GRADLE_VERSION/bin/gradle 100 --force
 
-# kotlin-language-server (LSP)
-RUN wget -O $INSTALL_PATH/kotlin-lsp.zip https://github.com/fwcd/kotlin-language-server/releases/download/1.3.0/server.zip
-RUN sudo unzip -d /opt/kotlin-lsp $INSTALL_PATH/kotlin-lsp.zip
-RUN cd /opt/kotlin-lsp/server/bin && sudo curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.45.2/ktlint && sudo chmod a+x ktlint
-ENV PATH="$PATH:/opt/kotlin-lsp/server/bin"
-
 #
 # Setup go 1.17
 RUN wget -O $INSTALL_PATH/go1.17.linux-amd64.tar.gz https://golang.org/dl/go1.17.linux-amd64.tar.gz \
@@ -100,17 +94,11 @@ RUN wget -O $INSTALL_PATH/go1.17.linux-amd64.tar.gz https://golang.org/dl/go1.17
   && sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.17.linux-amd64.tar.gz \
   && sudo update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100 --force \
   && sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100 --force
-# gopls (LSP)
-RUN go install golang.org/x/tools/gopls@latest
-ENV PATH="$PATH:/home/$USERNAME/go/bin"
 
 #
 # Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-# Rust analyzer (LSP)
-RUN git clone https://github.com/rust-analyzer/rust-analyzer.git $INSTALL_PATH/rust-analyzer
 ENV PATH="$PATH:/home/$USERNAME/.cargo/bin"
-RUN cd $INSTALL_PATH/rust-analyzer && cargo xtask install --server
 
 #
 # Dart
@@ -140,16 +128,6 @@ RUN wget -O $INSTALL_PATH/natscli-0.0.28-amd64.deb https://github.com/nats-io/na
 # Install docker
 RUN sudo apt-get install -y docker.io docker-compose && pip3 install docker-compose
 
-#
-# Add command alias
-RUN echo "alias gittree='git log --oneline --graph --all'" >> ~/.zshrc \
-  && echo "alias ptpython='python3 -m ptpython'" >> ~/.zshrc
-
-COPY --chown=$USERNAME ./HELP /home/$USERNAME/HELP
-
-WORKDIR /home/$USERNAME
-ENV LC_ALL=C.UTF-8
-
 # Install w3m (cli browser)
 RUN sudo apt install -y w3m w3m-img
 
@@ -172,6 +150,18 @@ RUN cargo install zellij
 # Install Rg for fzf
 RUN sudo apt install ripgrep -y
 
+#
+# Add command alias
+RUN echo "alias gittree='git log --oneline --graph --all'" >> ~/.zshrc \
+  && echo "alias ptpython='python3 -m ptpython'" >> ~/.zshrc
+
+
+
+COPY --chown=$USERNAME ./HELP /home/$USERNAME/HELP
+
+WORKDIR /home/$USERNAME
+ENV LC_ALL=C.UTF-8
+
 # Install SpaceVim
 RUN curl -sLf https://spacevim.org/install.sh | bash
 
@@ -179,6 +169,23 @@ RUN curl -sLf https://spacevim.org/install.sh | bash
 # Install vim-plug
 RUN curl -fLo ~/.SpaceVim.d/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+#
+# LSP support
+
+# kotlin-language-server
+RUN wget -O $INSTALL_PATH/kotlin-lsp.zip https://github.com/fwcd/kotlin-language-server/releases/download/1.3.0/server.zip
+RUN sudo unzip -d /opt/kotlin-lsp $INSTALL_PATH/kotlin-lsp.zip
+RUN cd /opt/kotlin-lsp/server/bin && sudo curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.45.2/ktlint && sudo chmod a+x ktlint
+ENV PATH="$PATH:/opt/kotlin-lsp/server/bin"
+
+# gopls
+RUN go install golang.org/x/tools/gopls@latest
+ENV PATH="$PATH:/home/$USERNAME/go/bin"
+
+# Rust analyzer (LSP)
+RUN git clone https://github.com/rust-analyzer/rust-analyzer.git $INSTALL_PATH/rust-analyzer
+RUN cd $INSTALL_PATH/rust-analyzer && cargo xtask install --server
 
 #
 # Apply vim customize
