@@ -198,6 +198,8 @@ RUN cat ~/append_vim.conf >> ~/.SpaceVim/main.vim \
 RUN vim --not-a-term --ttyfail -c :PlugInstall -c :q -c :q
 ## Add ftplugin for lsc
 COPY --chown=$USERNAME config/vim/ftplugin/* /home/$USERNAME/.SpaceVim/ftplugin/
+## Install SpaceVim plugin (delay 30 seconds for wait end of installing not sures complete install)
+RUN vim --not-a-term | (sleep 30s && kill -9 `pidof vim`)
 
 #
 # Add manual tmux key bind
