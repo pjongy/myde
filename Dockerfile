@@ -157,8 +157,6 @@ RUN echo "alias gittree='git log --oneline --graph --all'" >> ~/.zshrc \
 
 
 
-COPY --chown=$USERNAME ./HELP /home/$USERNAME/HELP
-
 WORKDIR /home/$USERNAME
 ENV LC_ALL=C.UTF-8
 
@@ -207,5 +205,8 @@ COPY --chown=$USERNAME config/tmux/append_tmux.conf /home/$USERNAME/append_tmux.
 RUN cat ~/append_tmux.conf >> ~/.tmux.conf \
   && rm -f ~/append_tmux.conf
 
+#
+# Add HELP
+COPY --chown=$USERNAME ./HELP /home/$USERNAME/HELP
 
 CMD tmux

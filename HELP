@@ -109,12 +109,15 @@ Vim (SpaceVim)
     Next cursor
       <Ctrl> + i
 
+  Go to definition (Using tag)
+    <Ctrl> + ]
+
   vim-lsc (autocomplete via key typing)
     Go to definition (:LSClientGoToDefinition)
       <Leader> + d
 
-    Go to definition (Using tag)
-      <Ctrl> + ]
+    List references (:LSClientFindReferenses)
+      <Leader> + r
 
     Autocomplete manually (wired omnifunc to lsc#complete#complete)
       <Ctrl> + x -> <Ctrl> + o
@@ -189,9 +192,6 @@ Vim (SpaceVim)
       <Ctrl> + <f>
 
   Vim-go
-    Goto definition (:GoDef)
-      <Ctrl> + ]
-
     Format
       :GoFmt
 
