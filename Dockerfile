@@ -102,6 +102,7 @@ RUN wget -O $INSTALL_PATH/go1.17.linux-amd64.tar.gz https://golang.org/dl/go1.17
   && sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100 --force
 # gopls (LSP)
 RUN go install golang.org/x/tools/gopls@latest
+ENV PATH="$PATH:/home/$USERNAME/go/bin"
 
 #
 # Rust
