@@ -190,18 +190,18 @@ RUN cd $INSTALL_PATH/rust-analyzer && cargo xtask install --server
 #
 # Apply vim customize
 ## Append vim config
-COPY --chown=$USERNAME ./space_vim_init.toml /home/$USERNAME/.SpaceVim.d/init.toml
-COPY --chown=$USERNAME ./append_vim.conf /home/$USERNAME/append_vim.conf
+COPY --chown=$USERNAME config/vim/space_vim_init.toml /home/$USERNAME/.SpaceVim.d/init.toml
+COPY --chown=$USERNAME config/vim/append_vim.conf /home/$USERNAME/append_vim.conf
 RUN cat ~/append_vim.conf >> ~/.SpaceVim/main.vim \
   && rm -f ~/append_vim.conf
 ## Install plugins
 RUN vim --not-a-term --ttyfail -c :PlugInstall -c :q -c :q
 ## Add ftplugin for lsc
-COPY --chown=$USERNAME ftplugin/* /home/$USERNAME/.SpaceVim/ftplugin/
+COPY --chown=$USERNAME config/vim/ftplugin/* /home/$USERNAME/.SpaceVim/ftplugin/
 
 #
 # Add manual tmux key bind
-COPY --chown=$USERNAME ./append_tmux.conf /home/$USERNAME/append_tmux.conf
+COPY --chown=$USERNAME config/tmux/append_tmux.conf /home/$USERNAME/append_tmux.conf
 RUN cat ~/append_tmux.conf >> ~/.tmux.conf \
   && rm -f ~/append_tmux.conf
 
