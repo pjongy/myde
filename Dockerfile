@@ -173,6 +173,7 @@ RUN curl -fLo ~/.SpaceVim.d/autoload/plug.vim --create-dirs \
 
 # kotlin-language-server
 RUN wget -O $INSTALL_PATH/kotlin-lsp.zip https://github.com/fwcd/kotlin-language-server/releases/download/1.3.0/server.zip
+# TODO: Update kotlin-language-version after release https://github.com/fwcd/kotlin-language-server/pull/343 (for code action)
 RUN sudo unzip -d /opt/kotlin-lsp $INSTALL_PATH/kotlin-lsp.zip
 RUN cd /opt/kotlin-lsp/server/bin && sudo curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.45.2/ktlint && sudo chmod a+x ktlint
 ENV PATH="$PATH:/opt/kotlin-lsp/server/bin"
