@@ -46,6 +46,9 @@ Tmux
       e.g) Resize to down 10
            resize-pane -D 10
 
+    Clear history
+      clear-history
+
   Edit mode
     <HotKye> -> [
 
@@ -112,6 +115,12 @@ Vim (SpaceVim)
   Go to definition (Using tag)
     <Ctrl> + ]
 
+  Replace dragged in visual mode
+    <Ctrl> + r
+
+  Find dragged string in visual mode
+    <Ctrl> + f
+
   vim-lsc (autocomplete via key typing)
     Go to definition (:LSClientGoToDefinition)
       <Leader> + d
@@ -121,6 +130,9 @@ Vim (SpaceVim)
 
     Autocomplete manually (wired omnifunc to lsc#complete#complete)
       <Ctrl> + x -> <Ctrl> + o
+
+    Quick fix (Code action) (similar with Alt+Enter in intellij)
+      <Ctrl> + a
 
   Change colorScheme
     :colorscheme default
