@@ -112,6 +112,13 @@ Vim (SpaceVim)
     Next cursor
       <Ctrl> + i
 
+    Skip word
+        Backward
+          b
+
+        Forward
+          e
+
   Go to definition (Using tag)
     <Ctrl> + ]
 
@@ -120,6 +127,9 @@ Vim (SpaceVim)
 
   Find dragged string in visual mode
     <Ctrl> + f
+
+  Show debug messages
+    :messages
 
   vim-lsc (autocomplete via key typing)
     Go to definition (:LSClientGoToDefinition)
