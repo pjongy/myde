@@ -29,13 +29,7 @@
     vimcompatible = true
     filetree_direction = true
     enable_filetree_gitstatus = true
-    relativenumber = true
-
-# Enable autocomplete layer
-[[layers]]
-name = 'autocomplete'
-auto_completion_return_key_behavior = "complete"
-auto_completion_tab_key_behavior = "cycle"
+    relativenumber = false
 
 [[layers]]
 name = 'shell'

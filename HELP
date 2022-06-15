@@ -22,6 +22,9 @@ Tmux
   Create new window
     <HotKey> -> c
 
+  Close window force
+    <HotKey> -> x
+
   Change window previous
     <HotKey> -> p
 
