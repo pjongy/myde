@@ -122,6 +122,9 @@ Vim (SpaceVim)
         Forward
           e
 
+  Change Tab
+    \ + [1..9]
+
   Go to definition (Using tag)
     <Ctrl> + ]
 
