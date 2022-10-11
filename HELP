@@ -219,14 +219,6 @@ Vim (SpaceVim)
     Find text visual selected block
       <Ctrl> + <f>
 
-  Vim-go
-    Format
-      :GoFmt
-
-  Jedi-vim (python)
-    Goto definition
-      <leader> -> d
-
   Hexa
     Enter hex edit mode
       :%!xxd

@@ -21,6 +21,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && rm -rf /var/lib/apt/lists/*
 USER $USERNAME
 
+SHELL ["/bin/bash", "-c"]
 #
 # Setup download path
 ARG INSTALL_PATH=/home/$USERNAME/installed
@@ -70,7 +71,8 @@ RUN python3 -m pip install ptpython
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash \
   && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc \
   && echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm ' >> ~/.zshrc \
-  && echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.zshrc
+  && echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.zshrc \
+  && source $HOME/.nvm/nvm.sh && nvm install --lts
 
 #
 # Setup jabba (jdk env)
@@ -160,12 +162,9 @@ RUN echo "alias gittree='git log --oneline --graph --all'" >> ~/.zshrc \
 WORKDIR /home/$USERNAME
 ENV LC_ALL=C.UTF-8
 
-# Install SpaceVim
-RUN curl -sLf https://spacevim.org/install.sh | bash
-
 #
 # Install vim-plug
-RUN curl -fLo ~/.SpaceVim.d/autoload/plug.vim --create-dirs \
+RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 #
@@ -182,22 +181,31 @@ ENV PATH="$PATH:/opt/kotlin-lsp/server/bin"
 RUN go install golang.org/x/tools/gopls@latest
 ENV PATH="$PATH:/home/$USERNAME/go/bin"
 
-# Rust analyzer (LSP)
+# Rust analyzer (LSP) v2022-05-30
 RUN git clone https://github.com/rust-analyzer/rust-analyzer.git $INSTALL_PATH/rust-analyzer
-RUN cd $INSTALL_PATH/rust-analyzer && cargo xtask install --server
+RUN cd $INSTALL_PATH/rust-analyzer && git checkout -b build f94fa62d69faf5bd63b3772d3ec4f0c76cf2db57 && cargo xtask install --server
+
+# typescript-language-server
+RUN source ~/.nvm/nvm.sh && nvm exec npm install -g typescript-language-server typescript
+
+# python lsp server (pylsp)
+RUN python3 -m pip install "python-lsp-server[all]"
 
 #
 # Apply vim customize
 ## Append vim config
-COPY --chown=$USERNAME config/vim/space_vim_init.toml /home/$USERNAME/.SpaceVim.d/init.toml
 COPY --chown=$USERNAME config/vim/append_vim.conf /home/$USERNAME/append_vim.conf
-RUN cat ~/append_vim.conf >> ~/.SpaceVim/main.vim \
+RUN cat ~/append_vim.conf >> ~/.vimrc \
   && rm -f ~/append_vim.conf
 ## Install plugins
-RUN vim --not-a-term --ttyfail -c :PlugInstall -c :q -c :q
+RUN vim --not-a-term --ttyfail -c :PlugInstall -c :q -c :q \
+  && echo "colo seoul256" >> ~/.vimrc
 ## Add ftplugin for lsc
-COPY --chown=$USERNAME config/vim/ftplugin/* /home/$USERNAME/.SpaceVim/ftplugin/
-## Install SpaceVim plugin (delay 30 seconds for wait end of installing not sures complete install)
+COPY --chown=$USERNAME config/vim/ftplugin/* /home/$USERNAME/.vim/ftplugin/
+### Update python path for global (use # for sed delimiter)
+ENV PYTHON_PATH=/home/$USERNAME/.pyenv/versions/$PYTHON_VERSION/bin/python3
+RUN sed -i "s#PYTHON_PATH#$PYTHON_PATH#g" /home/$USERNAME/.vim/ftplugin/python.vim
+## Install Vim plugin (delay 30 seconds for wait end of installing not sures complete install)
 RUN vim --not-a-term | (sleep 30s && kill -9 `pidof vim`)
 
 #
