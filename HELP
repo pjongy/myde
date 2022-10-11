@@ -101,9 +101,7 @@ W3M
       <Shift> + q
 
 
-Vim (SpaceVim)
-  HotKey
-    <Space>
+Vim
 
   <Leader>
     ,
