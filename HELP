@@ -148,6 +148,9 @@ Vim
     Quick fix (Code action) (similar with Alt+Enter in intellij)
       <Ctrl> + a
 
+    Rename (Include references) (similar with Shift+F6 in intellij)
+      <F6>
+
   Change colorScheme
     :colorscheme default
 
