@@ -191,6 +191,9 @@ Vim
       Set current cursor as root
         C
 
+      Move cursor back to NerdTree
+        w
+
    Resize Panel
      {Number} -> Ctrl + w -> { - / + }
 
@@ -232,6 +235,20 @@ Vim
 
       With column
         :%!xxd -r -c 24
+
+  Tab control (vim-buffet)
+
+    Move tab forward
+      <Tab>
+
+    Move tab backward
+      <Shift> + <Tab>
+
+    Close tab
+      :Bw
+
+    Close tab without current tab
+      :Bonly
 
 kafkactl
 
