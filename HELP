@@ -166,6 +166,9 @@ Vim
     Move cursor between NerdTree
       <Ctrl> + w -> <Arrow Left/Right>
 
+    Move cursor back to NerdTree
+      <Ctrl> + w -> e
+
     On NERDTree
       Help
         ?
@@ -190,9 +193,6 @@ Vim
 
       Set current cursor as root
         C
-
-      Move cursor back to NerdTree
-        w
 
    Resize Panel
      {Number} -> Ctrl + w -> { - / + }
@@ -245,7 +245,7 @@ Vim
       <Shift> + <Tab>
 
     Close tab
-      :Bw
+      <Leader> + w
 
     Close tab without current tab
       :Bonly
