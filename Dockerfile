@@ -90,10 +90,10 @@ RUN sudo unzip -d /opt/gradle $INSTALL_PATH/gradle-$GRADLE_VERSION-bin.zip
 RUN sudo update-alternatives --install /usr/bin/gradle gradle /opt/gradle/gradle-$GRADLE_VERSION/bin/gradle 100 --force
 
 #
-# Setup go 1.17
-RUN wget -O $INSTALL_PATH/go1.17.linux-amd64.tar.gz https://golang.org/dl/go1.17.linux-amd64.tar.gz \
+# Setup go 1.19
+RUN wget -O $INSTALL_PATH/go1.19.linux-amd64.tar.gz https://golang.org/dl/go1.19.linux-amd64.tar.gz \
   && sudo mkdir /usr/go \
-  && sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.17.linux-amd64.tar.gz \
+  && sudo tar -C /usr/go -xvf $INSTALL_PATH/go1.19.linux-amd64.tar.gz \
   && sudo update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100 --force \
   && sudo update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100 --force
 

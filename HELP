@@ -157,6 +157,22 @@ Vim
     Rename (Include references) (similar with Shift+F6 in intellij)
       <F6>
 
+  Macro
+    Start macro recording
+      q -> {any key for macro}
+
+    Stop recording
+      q
+
+    Run macro
+      @ -> {recorded macro key}
+
+    Run last ran macro
+      @@
+
+    Run macro n times
+      {n} -> @
+
   Change colorScheme
     :colorscheme default
 
@@ -174,6 +190,9 @@ Vim
 
     Move cursor back to NerdTree
       <Ctrl> + w -> e
+
+    Move cursor back to NerdTree with opend file
+      <Ctrl> + w -> g
 
     On NERDTree
       Help
