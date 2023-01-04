@@ -50,7 +50,11 @@ Tmux
       list-keys
 
   Resize pane
-    <Hotkey> -> <Alt> + <Arrow Left/Right/Up/Down>
+    By 5 characters
+      <Hotkey> -> <Alt> + <Arrow Left/Right/Up/Down>
+
+    By 2 characters
+      <Ctrl> + <Arrow Left/Right/Up/Down>
 
   Edit mode
     <HotKye> -> [
