@@ -198,8 +198,8 @@ COPY --chown=$USERNAME config/vim/append_vim.conf /home/$USERNAME/append_vim.con
 RUN cat ~/append_vim.conf >> ~/.vimrc \
   && rm -f ~/append_vim.conf
 ## Install plugins
-RUN vim --not-a-term --ttyfail -c :PlugInstall -c :q -c :q \
-  && echo "colo seoul256" >> ~/.vimrc
+RUN vim --not-a-term --ttyfail -c :PlugInstall -c :q -c :q
+RUN echo "colo seoul256" >> ~/.vimrc
 ## Add ftplugin for lsc
 COPY --chown=$USERNAME config/vim/ftplugin/* /home/$USERNAME/.vim/ftplugin/
 ### Update python path for global (use # for sed delimiter)
