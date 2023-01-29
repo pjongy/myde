@@ -218,4 +218,4 @@ RUN cat ~/append_tmux.conf >> ~/.tmux.conf \
 # Add HELP
 COPY --chown=$USERNAME ./HELP /home/$USERNAME/HELP
 
-CMD tmux
+CMD TERM="xterm-256color" tmux
