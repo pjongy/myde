@@ -188,6 +188,9 @@ RUN cd $INSTALL_PATH/rust-analyzer && git checkout -b build f94fa62d69faf5bd63b3
 # typescript-language-server
 RUN source ~/.nvm/nvm.sh && nvm exec npm install -g typescript-language-server typescript
 
+# svelte-language-server
+RUN source ~/.nvm/nvm.sh && nvm exec npm install -g svelte-language-server
+
 # python lsp server (pylsp)
 RUN python3 -m pip install "python-lsp-server[all]"
 
