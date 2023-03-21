@@ -210,6 +210,8 @@ ENV PYTHON_PATH=/home/$USERNAME/.pyenv/versions/$PYTHON_VERSION/bin/python3
 RUN sed -i "s#PYTHON_PATH#$PYTHON_PATH#g" /home/$USERNAME/.vim/ftplugin/python.vim
 ## Install Vim plugin (delay 30 seconds for wait end of installing not sures complete install)
 RUN vim --not-a-term | (sleep 30s && kill -9 `pidof vim`)
+## Install vim-gitgutter plugin
+RUN mkdir -p ~/.vim/pack/airblade/start && cd ~/.vim/pack/airblade/start && git clone https://github.com/airblade/vim-gitgutter.git
 
 #
 # Add manual tmux key bind
