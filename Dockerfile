@@ -146,6 +146,10 @@ RUN sudo apt install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev
 RUN cargo install jless
 
 #
+# Add ouch (CLI tool for compressing and decompressing for various formats)
+RUN cargo install ouch
+
+#
 # Add jellij (tmux alternative)
 RUN cargo install zellij
 

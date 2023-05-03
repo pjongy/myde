@@ -344,3 +344,14 @@ zellij (tmux alternative)
 
     Attach zellij session
       $ zellij attach
+
+ouch (CLI tool for compressing and decompressing for various formats)
+
+    Compress (zip)
+      $ ouch compress one.txt two.txt archive.zip
+
+    Compress (using .lz4 and .zst)
+      $ ouch compress file.txt file.txt.lz4.zst
+
+    Decompress (regardless of format)
+      $ ouch decompress summer_vacation.zip
