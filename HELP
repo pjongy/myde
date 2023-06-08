@@ -224,7 +224,17 @@ Vim
         C
 
    Resize Panel
-     {Number} -> Ctrl + w -> { - / + }
+     Vertical (left, right)
+       :vertical resize {SIZE}
+
+     Vertical Shortcut
+       {SIZE} -> Ctrl + w -> { < \ > }
+
+     Horizontal (top, bottom)
+       :resize {SIZE}
+
+     Horizontal Shortcut
+       {SIZE} -> Ctrl + w -> { - / + }
 
 
   FZF
