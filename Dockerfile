@@ -127,6 +127,13 @@ RUN wget -O $INSTALL_PATH/natscli-0.0.28-amd64.deb https://github.com/nats-io/na
   && sudo dpkg -i $INSTALL_PATH/natscli-0.0.28-amd64.deb
 
 #
+# Install aws cli
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o $INSTALL_PATH/awscliv2.zip \
+  && chmod 755 $INSTALL_PATH/awscliv2.zip \
+  && unzip $INSTALL_PATH/awscliv2.zip -d $INSTALL_PATH/awscli \
+  && sudo $INSTALL_PATH/awscli/aws/install
+
+#
 # Install docker
 RUN sudo apt-get install -y docker.io docker-compose && pip3 install docker-compose
 
