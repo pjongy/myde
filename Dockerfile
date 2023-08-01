@@ -135,7 +135,7 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o $INSTALL_
 
 #
 # Install docker
-RUN sudo apt-get install -y docker.io docker-compose && pip3 install docker-compose
+RUN curl -fsSL https://get.docker.com/ | sudo sh
 
 # Install w3m (cli browser)
 RUN sudo apt install -y w3m w3m-img
