@@ -16,6 +16,12 @@ Tmux
   HotKey
     <Ctrl> + b
 
+  Rename window
+    <Hotkey> -> ,
+
+  Rename Session
+    <Hotkey> -> $
+
   HotKey(e.g remote) in tmux session (Send hotkey twice)
     <HotKey> -> <HotKey>
 
@@ -56,6 +62,19 @@ Tmux
     By 2 characters
       <Alt> + <Arrow Left/Right/Up/Down>
 
+  Cursor control
+    Move cursor forward over word
+      Alt + f
+
+    Move cursor backward over word
+      Alt + b
+
+    Move cursor start of line
+      Ctrl + a
+
+    Move cursor end of line
+      Ctrl + e
+
   Edit mode
     <HotKye> -> [
 
@@ -65,7 +84,7 @@ Tmux
         - next: n
         - previos: N
 
-      Cursor drag
+      Cursor drag (visual mode)
         <Ctrl> + <Space>
         v
 
@@ -224,6 +243,9 @@ Vim
         C
 
    Resize Panel
+     Make panes as same size
+       Ctrl + w -> =
+
      Vertical (left, right)
        :vertical resize {SIZE}
 
