@@ -208,6 +208,9 @@ Vim
   NerdTree
     :NERDTree
 
+    Move to current directory
+      CD
+
     Move cursor between NerdTree
       <Ctrl> + w -> <Arrow Left/Right>
 
