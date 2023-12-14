@@ -1,6 +1,6 @@
 # myde
 
-My development environment
+My development environment (amd64/arm64)
 
 ## Run
 Mounting docker.sock volume is for DooD
@@ -14,6 +14,12 @@ Mounting host's git config and credentials
 docker run -v "$HOME/.gitconfig:/home/dev/.gitconfig:ro" \
   -v "$HOME/.git-credentials:/home/dev/.git-credentials:ro" \
   --name myde -it pjongy/myde:{version}
+```
+
+## Build
+```
+$ docker build . -f Dockerfile-arm -t myde:arm64
+$ docker build . -f Dockerfile -t myde:amd64
 ```
 
 It loads tmux as default. <br>
