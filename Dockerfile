@@ -54,7 +54,7 @@ RUN sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
 
 #
 # Setup pyenv
-ARG PYTHON_VERSION_MAJOR=3.9
+ARG PYTHON_VERSION_MAJOR=3.12
 ARG PYTHON_VERSION=$PYTHON_VERSION_MAJOR.0
 RUN sudo git clone https://github.com/pyenv/pyenv.git /opt/.pyenv \
   && /opt/.pyenv/bin/pyenv install $PYTHON_VERSION \
