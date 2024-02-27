@@ -20,13 +20,13 @@ call NERDTreeAddMenuItem({
   \ 'callback': 'NERDTreeCutFile' })
 
 call NERDTreeAddMenuItem({
-  \ 'text': 'copy file (x)',
-  \ 'shortcut': 'x',
+  \ 'text': 'copy file (b)',
+  \ 'shortcut': 'b',
   \ 'callback': 'NERDTreeCopyFile' })
 
 call NERDTreeAddMenuItem({
-  \ 'text': '(p)aste file',
-  \ 'shortcut': 'p',
+  \ 'text': 'paste file (v)',
+  \ 'shortcut': 'v',
   \ 'callback': 'NERDTreePasteFile' })
 
 function! NERDTreeCutFile()

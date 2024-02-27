@@ -239,6 +239,15 @@ Vim
         Add new file
           a
 
+        Cut file
+          x
+
+        Copy file
+          b
+
+        Paste file
+          v
+
       Refresh nodes
         R
 
@@ -260,6 +269,12 @@ Vim
 
      Horizontal Shortcut
        {SIZE} -> Ctrl + w -> { - / + }
+
+     Maximize current panel horizontally
+       Ctrl + w -> |
+
+     Maximize current panel vertically
+       Ctrl + w -> _
 
 
   FZF
