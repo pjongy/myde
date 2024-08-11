@@ -302,6 +302,9 @@ Vim
     Find text visual selected block
       <Ctrl> + <f>
 
+    Copy yanked text to tmux
+      yt
+
   Hexa
     Enter hex edit mode
       :%!xxd
