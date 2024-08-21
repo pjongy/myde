@@ -16,6 +16,9 @@ Tmux
   HotKey
     <Ctrl> + b
 
+  Toggle synchronize panes(on/off)
+    <Hotkey> -> a
+
   Rename window
     <Hotkey> -> ,
 
