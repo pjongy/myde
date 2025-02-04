@@ -1,7 +1,7 @@
 function! s:register() abort
   let l:config = {
     \ 'name': 'Python Analysis Server',
-    \ 'command': ['PYTHON_PATH', '-m', 'pylsp'],
+    \ 'command': ['python3', '-m', 'pylsp'],
     \}
   call RegisterLanguageServer('python', l:config)
 endfunction

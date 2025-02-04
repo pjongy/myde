@@ -217,9 +217,6 @@ RUN echo "colo seoul256" >> ~/.vimrc
 ## Add ftplugin for lsc
 COPY --chown=$USERNAME config/vim/ftplugin/* /home/$USERNAME/.vim/ftplugin/
 COPY --chown=$USERNAME config/vim/after/plugin/* /home/$USERNAME/.vim/after/plugin/
-### Update python path for global (use # for sed delimiter)
-ENV PYTHON_PATH=/home/$USERNAME/.pyenv/versions/$PYTHON_VERSION/bin/python3
-RUN sed -i "s#PYTHON_PATH#$PYTHON_PATH#g" /home/$USERNAME/.vim/ftplugin/python.vim
 ## Install Vim plugin (delay 30 seconds for wait end of installing not sures complete install)
 RUN vim --not-a-term | (sleep 30s && kill -9 `pidof vim`)
 ## Install vim-gitgutter plugin
