@@ -1,5 +1,5 @@
 # Dockerfile
-FROM --platform=linux/arm64/v8 ubuntu:23.04
+FROM --platform=linux/arm64/v8 ubuntu:24.04
 
 SHELL ["/bin/bash", "-c"]
 
@@ -39,33 +39,15 @@ RUN apt-get install -y make build-essential libssl-dev zlib1g-dev \
 
 #
 # Setup pyenv
-ARG PYTHON_VERSION_MAJOR=3.12
-ARG PYTHON_VERSION=$PYTHON_VERSION_MAJOR.0
-RUN git clone https://github.com/pyenv/pyenv.git /opt/.pyenv \
-  && /opt/.pyenv/bin/pyenv install $PYTHON_VERSION \
-  && update-alternatives --install /usr/bin/python3 python3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3 100 --force \
-  && update-alternatives --install /usr/bin/pip3 pip3 $HOME/.pyenv/versions/$PYTHON_VERSION/bin/pip3 100 --force \
-  && ln -s /usr/share/pyshared/lsb_release.py $HOME/.pyenv/versions/$PYTHON_VERSION/lib/python$PYTHON_VERSION_MAJOR/site-packages/lsb_release.py
-ENV PYENV_ROOT="/opt/.pyenv"
-ENV PATH="$PATH:$PYENV_ROOT/bin"
-# Install ptpython (python console)
-RUN python3 -m pip install ptpython
+RUN git clone https://github.com/pyenv/pyenv.git /opt/.pyenv
+RUN update-alternatives --install /usr/bin/pyenv pyenv /opt/.pyenv/bin/pyenv 100 --force
 
 #
 # Setup nvm
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash \
   && echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc \
   && echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm ' >> ~/.zshrc \
-  && echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.zshrc \
-  && source $HOME/.nvm/nvm.sh && nvm install --lts
-
-#
-# Setup jabba (jdk env)
-RUN curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . ~/.jabba/jabba.sh \
-  && chmod -R 755 ~/.jabba \
-  && ~/.jabba/bin/jabba install adopt@1.14.0-0
-ENV JAVA_HOME=$HOME_PATH/.jabba/jdk/adopt@1.14.0-0
-ENV PATH="$PATH:$JAVA_HOME/bin"
+  && echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion' >> ~/.zshrc
 
 #
 # Install gradle
@@ -75,24 +57,28 @@ RUN unzip -d /opt/gradle $INSTALL_PATH/gradle-$GRADLE_VERSION-bin.zip
 RUN update-alternatives --install /usr/bin/gradle gradle /opt/gradle/gradle-$GRADLE_VERSION/bin/gradle 100 --force
 
 #
-# Setup go 1.21.5
-RUN wget -O $INSTALL_PATH/go1.21.linux-arm64.tar.gz https://go.dev/dl/go1.21.5.linux-arm64.tar.gz \
-  && mkdir -p /usr/go \
-  && tar -C /usr/go -xvf $INSTALL_PATH/go1.21.linux-arm64.tar.gz \
-  && update-alternatives --install /usr/bin/go go /usr/go/go/bin/go 100 --force \
-  && update-alternatives --install /usr/bin/gofmt gofmt /usr/go/go/bin/gofmt 100 --force
+# Setup jabba (jdk env)
+RUN curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . $HOME/.jabba/jabba.sh \
+  && chmod -R 755 $HOME/.jabba
+RUN update-alternatives --install /usr/bin/jabba jabba $HOME/.jabba/bin/jabba 100 --force
+RUN echo "export JAVA_HOME=$HOME/.jabba/jdk/\$(jabba ls | head -n 1)" >> ~/.zshrc
+RUN echo "export PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.zshrc
 
 #
 # Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="$PATH:$HOME_PATH/.cargo/bin"
 
+
 #
-# Dart
-RUN apt-get install -y apt-transport-https
-RUN wget https://storage.googleapis.com/dart-archive/channels/stable/release/3.2.3/sdk/dartsdk-linux-arm64-release.zip -O $INSTALL_PATH/dartsdk-linux-arm64-release.zip
-RUN unzip $INSTALL_PATH/dartsdk-linux-arm64-release.zip -d $HOME_PATH/.dart
-ENV PATH="$PATH:$HOME_PATH/.dart"
+# Install languages
+COPY --chown=$USERNAME arch/arm/installer/* $INSTALL_PATH/installer/
+RUN $INSTALL_PATH/installer/python.sh \
+  && $INSTALL_PATH/installer/go.sh \
+  && $INSTALL_PATH/installer/node.sh \
+  && $INSTALL_PATH/installer/jdk.sh \
+  && $INSTALL_PATH/installer/rust.sh \
+  && $INSTALL_PATH/installer/dart.sh
 
 #
 # Install kubectl
@@ -163,31 +149,14 @@ RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 #
-# LSP support
+# independent LSP support
 
 # kotlin-language-server
 RUN wget -O $INSTALL_PATH/kotlin-lsp.zip https://github.com/fwcd/kotlin-language-server/releases/download/1.3.0/server.zip
 # TODO: Update kotlin-language-version after release https://github.com/fwcd/kotlin-language-server/pull/343 (for code action)
 RUN unzip -d /opt/kotlin-lsp $INSTALL_PATH/kotlin-lsp.zip
 RUN cd /opt/kotlin-lsp/server/bin && curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.45.2/ktlint && chmod a+x ktlint
-ENV PATH="$PATH:/opt/kotlin-lsp/server/bin"
-
-# gopls
-RUN /usr/go/go/bin/go install golang.org/x/tools/gopls@latest
-ENV PATH="$PATH:$HOME_PATH/go/bin"
-
-# Rust analyzer (LSP) v2022-05-30
-RUN git clone https://github.com/rust-analyzer/rust-analyzer.git $INSTALL_PATH/rust-analyzer
-RUN cd $INSTALL_PATH/rust-analyzer && git checkout -b build f94fa62d69faf5bd63b3772d3ec4f0c76cf2db57 && cargo xtask install --server
-
-# typescript-language-server
-RUN source ~/.nvm/nvm.sh && nvm exec npm install -g typescript-language-server typescript
-
-# svelte-language-server
-RUN source ~/.nvm/nvm.sh && nvm exec npm install -g svelte-language-server
-
-# python lsp server (pylsp)
-RUN python3 -m pip install "python-lsp-server[all]"
+ENV PATH="$PATH:/pot/kotlin-lsp/server/bin"
 
 #
 # Apply vim customize
