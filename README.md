@@ -18,8 +18,8 @@ docker run -v "$HOME/.gitconfig:/home/dev/.gitconfig:ro" \
 
 ## Build
 ```
-$ docker build . -f Dockerfile-arm -t myde:arm64
-$ docker build . -f Dockerfile -t myde:amd64
+$ docker build . -f arch/arm/Dockerfile -t pjongy/myde:arm64
+$ docker build . -f arch/amd64/Dockerfile -t pjongy/myde:amd64
 ```
 
 It loads tmux as default. <br>
