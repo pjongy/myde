@@ -11,6 +11,9 @@ Installed env
   - rust
   - dart
 
+  Each languages' version can be Updated by: $INSTALL_PATH/installer/XXX.sh
+  (have to use this script not to break environments like LSP, lint, another language dependent packages)
+
 
 Tmux
   HotKey
