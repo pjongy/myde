@@ -1,7 +1,7 @@
 function! s:register() abort
   let l:config = {
     \ 'name': 'Dart Analysis Server',
-    \ 'command': ['dart', '/usr/lib/dart/bin/snapshots/analysis_server.dart.snapshot', '--lsp', '--client-id', 'vim'],
+    \ 'command': ['dart', '/opt/dart/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp', '--client-id', 'vim'],
     \ 'message_hooks': {
     \   'initialize': {
     \     'initializationOptions': {
