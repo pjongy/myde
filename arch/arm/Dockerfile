@@ -96,7 +96,7 @@ RUN wget -O $INSTALL_PATH/natscli-0.0.28-arm64.deb https://github.com/nats-io/na
 
 #
 # Install aws cli
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o $INSTALL_PATH/awscliv2.zip \
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o $INSTALL_PATH/awscliv2.zip \
   && chmod 755 $INSTALL_PATH/awscliv2.zip \
   && unzip $INSTALL_PATH/awscliv2.zip -d $INSTALL_PATH/awscli \
   && $INSTALL_PATH/awscli/aws/install
@@ -124,9 +124,6 @@ RUN cargo install jless
 # Add ouch (CLI tool for compressing and decompressing for various formats)
 RUN cargo install ouch
 
-#
-# Add jellij (tmux alternative)
-RUN cargo install zellij
 
 # Install Rg for fzf
 RUN apt install ripgrep -y

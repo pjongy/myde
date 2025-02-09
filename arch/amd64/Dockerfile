@@ -141,10 +141,6 @@ RUN cargo install jless
 # Add ouch (CLI tool for compressing and decompressing for various formats)
 RUN cargo install ouch
 
-#
-# Add jellij (tmux alternative)
-RUN cargo install zellij
-
 # Install Rg for fzf
 RUN sudo apt install ripgrep -y
 
