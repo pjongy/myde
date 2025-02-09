@@ -57,11 +57,9 @@ RUN unzip -d /opt/gradle $INSTALL_PATH/gradle-$GRADLE_VERSION-bin.zip
 RUN update-alternatives --install /usr/bin/gradle gradle /opt/gradle/gradle-$GRADLE_VERSION/bin/gradle 100 --force
 
 #
-# Setup jabba (jdk env)
-RUN curl -sL https://github.com/shyiko/jabba/raw/master/install.sh | bash && . $HOME/.jabba/jabba.sh \
-  && chmod -R 755 $HOME/.jabba
-RUN update-alternatives --install /usr/bin/jabba jabba $HOME/.jabba/bin/jabba 100 --force
-RUN echo "export JAVA_HOME=$HOME/.jabba/jdk/\$(jabba ls | head -n 1)" >> ~/.zshrc
+# Setup sdkman (jdk env)
+RUN curl -s https://get.sdkman.io | bash
+RUN echo "export JAVA_HOME=$HOME_PATH/.sdkman/candidates/java/current" >> ~/.zshrc
 RUN echo "export PATH=\$PATH:\$JAVA_HOME/bin" >> ~/.zshrc
 
 #

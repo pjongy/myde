@@ -3,7 +3,7 @@ Help
 
 Installed env
   - pyenv (python)
-  - jabba (jdk)
+  - sdkman (jdk)
   - nvm (node)
   - go
   - ptpython (interactive python console)
