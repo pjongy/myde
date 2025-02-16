@@ -15,6 +15,11 @@ Installed env
   (have to use this script not to break environments like LSP, lint, another language dependent packages)
 
 
+Shell
+  Reverse search (allowed in bash, zsh)
+    <Ctrl> + r
+
+
 Tmux
   HotKey
     <Ctrl> + b
@@ -77,9 +82,16 @@ Tmux
 
     Move cursor start of line
       Ctrl + a
+      Ctrl + s
 
     Move cursor end of line
       Ctrl + e
+
+    Page down
+      Ctrl + d
+
+    Page up
+      Ctrl + u
 
   Edit mode
     <HotKye> -> [
@@ -140,6 +152,19 @@ Vim
 
   <Leader>
     ,
+
+  Mode
+    Replace mode
+      R
+
+    Insert mode
+      i
+
+    Insert mode start of the line
+      I
+
+    Insert mode end of the line
+      A
 
   Move cursor
     Previous cursor
