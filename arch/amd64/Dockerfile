@@ -144,6 +144,17 @@ RUN cargo install ouch
 # Install Rg for fzf
 RUN sudo apt install ripgrep -y
 
+
+# Add delta (highlighting diff)
+RUN cargo install git-delta
+
+
+# Apply gitconfig
+COPY --chown=$USERNAME config/gitconfig/append_gitconfig.conf $HOME_PATH/append_gitconfig.conf
+RUN cat ~/append_gitconfig.conf >> ~/.gitconfig \
+  && rm -f ~/append_gitconfig.conf
+
+
 #
 # Add command alias
 RUN echo "alias gittree='git log --oneline --graph --all'" >> ~/.zshrc

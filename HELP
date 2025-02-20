@@ -439,3 +439,12 @@ ouch (CLI tool for compressing and decompressing for various formats)
 
     Decompress (regardless of format)
       $ ouch decompress summer_vacation.zip
+
+
+git-delta (already set for git)
+
+    See delta
+      $ delta FILE1 FILE2
+
+    Combine with rg (ripgrep)
+      $ rg --json -C 2 SEARCH_TEXT | delta
