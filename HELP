@@ -180,6 +180,9 @@ Vim
         Forward
           e
 
+  Toggle Paste / No-paste mode
+    <F2>
+
   Change Tab
     \ + [1..9]
 
