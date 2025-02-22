@@ -286,6 +286,12 @@ Vim
         C
 
    Resize Panel
+     Maximize current panel
+       Ctrl + w -> m
+
+       Retrurn
+         Ctrl + w -> m
+
      Make panes as same size
        Ctrl + w -> =
 
