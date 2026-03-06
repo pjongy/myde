@@ -5,8 +5,10 @@ My development environment (amd64/arm64)
 ## Run
 Mounting docker.sock volume is for DooD
 ```
-docker run -v /var/run/docker.sock:/var/run/docker.sock:ro \
-  -v "$PWD/myde-share:/share" --name myde -it pjongy/myde:{version}
+docker run -it -v "$PWD:/home/dev/project" \
+  -v "/var/run/docker.sock:/var/run/docker.sock:ro" \
+  --group-add $(stat -c '%g' /var/run/docker.sock) \
+  --name myde -it pjongy/myde:{version}
 ```
 
 Mounting host's git config and credentials
